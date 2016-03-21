@@ -9,6 +9,7 @@ import configureStore from './store/configureStore';
 import App from './views/App';
 import Home from './views/Home';
 import Login from './views/Login';
+import Shop from './views/Shop';
 
 import {getCookie} from './utils';
 
@@ -26,14 +27,15 @@ const validate = function (next, replace, callback) {
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
-        <Route path="/" onEnter={validate}>
-          <IndexRedirect to="home" />
-          <Route component={App}>
-            <Route path="home" component={Home}/>
-          </Route>
-          <Route path="login" component={Login}/>
+      <Route path="/" onEnter={validate}>
+        <IndexRedirect to="home" />
+        <Route component={App}>
+          <Route path="home" component={Home}/>
+          <Route path="shop" component={Shop}/>
         </Route>
-      </Router>
+        <Route path="login" component={Login}/>
+      </Route>
+    </Router>
   </Provider>,
   document.getElementById('root')
 );

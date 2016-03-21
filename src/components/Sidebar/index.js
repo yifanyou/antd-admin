@@ -22,7 +22,6 @@ const propTypes = {
 class Sidebar extends React.Component {
   constructor (props) {
     super(props)
-
     this.menuClickHandle = this.menuClickHandle.bind(this);
   }
 
@@ -46,7 +45,9 @@ class Sidebar extends React.Component {
         >
           {item.child.map((node) => {
             return (
-              <Menu.Item key={'menu'+node.key}>{node.name}</Menu.Item>
+              <Menu.Item key={'menu'+node.key}>
+              <Link to={'/shop'} state={null}>{node.name}</Link>
+              </Menu.Item>
             )
           })}
         </SubMenu>
@@ -54,9 +55,12 @@ class Sidebar extends React.Component {
     });
     return (
       <aside className="ant-layout-sider">
-        <div className="ant-layout-logo"></div>
+        <div className="ant-layout-logo">
+          <img src="/src/images/mnj-logo30.png" />
+          <font size="3" color="#00A0E8">美柠家管理系统</font>
+        </div>
         <Menu
-          mode="inline" theme="dark" openKeys={openKey}
+          mode="inline" theme="dark"
           onClick={this.menuClickHandle}
         >
           {menu}
@@ -70,7 +74,6 @@ Sidebar.propTypes = propTypes;
 Sidebar.defaultProps = defaultProps;
 
 function mapStateToProps(state) {
-
   return {
     items: state.menu.items,
     currentIndex: state.menu.currentIndex

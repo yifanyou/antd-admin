@@ -19,13 +19,11 @@ export default class Header extends React.Component {
     const {user} = this.props
     return (
       <div className='ant-layout-header'>
-        <Menu className="header-menu" onClick={this.handleClick}
-        mode="horizontal">
+        <Menu className="header-menu" onClick={this.handleClick} mode="horizontal">
           <SubMenu title={<span><Icon type="user" />{user.user}</span>}>
-            <Menu.Item key="setting:1">选项1</Menu.Item>
-            <Menu.Item key="setting:2">选项2</Menu.Item>
+            <Menu.Item key="setting:1">修改密码</Menu.Item>
             <Menu.Divider />
-            <Menu.Item key="setting:3">注销</Menu.Item>
+            <Menu.Item key="setting:2">登出</Menu.Item>
           </SubMenu>
           <Menu.Item key="mail">
             <Icon type="question" />帮助

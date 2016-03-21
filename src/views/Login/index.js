@@ -83,7 +83,6 @@ class Login extends React.Component {
           </Form>
         </Col>
       </Row>
-
     )
   }
 }

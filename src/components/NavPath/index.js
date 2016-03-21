@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react'
 import { bindActionCreators } from 'redux'
 import { Breadcrumb } from 'antd'
 import { connect } from 'react-redux'
+import { Link } from 'react-router'
 
 import './index.less'
 
@@ -28,7 +29,7 @@ class NavPath extends React.Component {
     return (
       <div className="ant-layout-breadcrumb">
         <Breadcrumb>
-          <Breadcrumb.Item key='bc-0'>首页</Breadcrumb.Item>
+          <Breadcrumb.Item key='bc-0'><Link to={'/home'} state={null}>首页</Link></Breadcrumb.Item>
           {bread}
         </Breadcrumb>
       </div>
