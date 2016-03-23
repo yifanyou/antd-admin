@@ -46,7 +46,7 @@ class Sidebar extends React.Component {
           {item.child.map((node) => {
             return (
               <Menu.Item key={'menu'+node.key}>
-              <Link to={'/shop'} state={null}>{node.name}</Link>
+              <Link to={'/'+ item.key +'/'+node.key} state={null}>{node.name}</Link>
               </Menu.Item>
             )
           })}

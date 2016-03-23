@@ -1,11 +1,12 @@
 /**
  * Created by youyifan on 2016/3/20.
  */
-import React, { PropTypes } from 'react';
-import {bindActionCreators} from 'redux';
-import {connect} from 'react-redux';
-import { Table, Button, Icon, Row, Col, Collapse, Alert } from 'antd';
-import {getAllRow} from '../../actions/shop';
+import React, { PropTypes } from 'react'
+import {bindActionCreators} from 'redux'
+import {connect} from 'react-redux'
+import { Table, Button, Icon, Row, Col, Collapse, Alert } from 'antd'
+import { Link } from 'react-router'
+import {getAllRow} from '../../actions/shop'
 
 const columns = [{
     title: 'ID',
@@ -38,32 +39,16 @@ const columns = [{
     title: '操作',
     key: 'operation',
     render(text, record) {
+        var url = '/4/401/shop/' + record.id;
         return (
             <span>
             <a href="#">修改</a>
             <span className="ant-divider"></span>
-            <a href="#"> 查看详情 </a>
+            <Link to={url} state={null}>查看详情</Link>
             </span>
     );
     }
 }];
-
-// const data = [{
-//     key: '1',
-//     name: '胡彦斌',
-//     age: 32,
-//     address: '西湖区湖底公园1号'
-// }, {
-//     key: '2',
-//     name: '胡彦祖',
-//     age: 42,
-//     address: '西湖区湖底公园1号'
-// }, {
-//     key: '3',
-//     name: '李大嘴',
-//     age: 32,
-//     address: '西湖区湖底公园1号'
-// }];
 
 // 通过 rowSelection 对象表明需要行选择
 const rowSelection = {
@@ -89,13 +74,14 @@ export default class Shop extends React.Component {
 
     render () {
         const {data} = this.props;
+
         return (
         <div>
             <div style={{ marginBottom: 16 }}>
                 <Button type="primary">添加</Button>
                 <Button type="primary">删除</Button>
             </div>
-            <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
+            <Table rowKey={record => record.id} rowSelection={rowSelection} columns={columns} dataSource={data} />
         </div>
         )
     }

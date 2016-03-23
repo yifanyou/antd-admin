@@ -1,15 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {Provider} from 'react-redux';
-import {Router, Route, IndexRedirect, useRouterHistory} from 'react-router';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import {Provider} from 'react-redux'
+import {Router, Route, IndexRedirect, useRouterHistory} from 'react-router'
 import {createHistory} from 'history'
 
-import configureStore from './store/configureStore';
+import configureStore from './store/configureStore'
 
-import App from './views/App';
-import Home from './views/Home';
-import Login from './views/Login';
-import Shop from './views/Shop';
+import App from './views/App'
+import Home from './views/Home'
+import Login from './views/Login'
+import Shop from './views/Shop'
+import Detail from './views/Detail'
 
 import {getCookie} from './utils';
 
@@ -31,7 +32,8 @@ ReactDOM.render(
         <IndexRedirect to="home" />
         <Route component={App}>
           <Route path="home" component={Home}/>
-          <Route path="shop" component={Shop}/>
+          <Route path="4/401" component={Shop}/>
+          <Route path="4/401/shop/1" component={Detail}/>
         </Route>
         <Route path="login" component={Login}/>
       </Route>
