@@ -11,9 +11,7 @@ const methods = [
 ];
 
 class _Api {
-
   constructor(opts) {
-
     this.opts = opts || {};
 
     if (!this.opts.baseURI)
@@ -38,9 +36,7 @@ class _Api {
         request.end((err, { body } = {}) => err ? reject(body || err) : resolve(body));
       })
     );
-
   }
-
 }
 
 const Api = _Api;

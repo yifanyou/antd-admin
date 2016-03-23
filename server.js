@@ -290,6 +290,101 @@ app.post('/api/menu', function(req, res) {
   });
 });
 
+app.post('/api/shop', function(req, res) {
+  res.json({
+    shops:[
+      {
+        id: '1',
+        name: '日高美容（雅戈尔店）',
+        brand: '日高',
+        address: '工业园区雅戈尔国际中心1-103',
+        isBonus:'0',
+        isValid:'0'
+      },
+      {
+        id: '2',
+        name: '金莎美容东环店',
+        brand: '金莎',
+        address: '工业园区葑谊街东城世纪广场5幢205（东环路家乐福）',
+        isBonus:'1',
+        isValid:'1'
+      },
+      {
+        id: '3',
+        name: '爱丽微儿',
+        brand: '',
+        address: '木渎镇金枫国际1幢121室',
+        isBonus:'1',
+        isValid:'1'
+      },
+      {
+        id: '4',
+        name: '黛芙妮尔五行驻颜养生会所',
+        brand: '',
+        address: '新区何山路88-2号',
+        isBonus:'1',
+        isValid:'1'
+      },
+      {
+        id: '5',
+        name: '路易芬尼美容相城店',
+        brand: '',
+        address: '相城区采莲路康桥花园834号',
+        isBonus:'1',
+        isValid:'1'
+      },
+      {
+        id: '6',
+        name: '丽源',
+        brand: '',
+        address: '吴中区吴中西路90号',
+        isBonus:'1',
+        isValid:'1'
+      },
+      {
+        id: '7',
+        name: '吴际美容美发',
+        brand: '吴际',
+        address: '相城区元和街道合景峰汇商铺5幢109',
+        isBonus:'1',
+        isValid:'1'
+      },
+      {
+        id: '8',
+        name: '路易香浓养生馆',
+        brand: '',
+        address: '工业园区南谢雨街凤凰新天地40-112号',
+        isBonus:'1',
+        isValid:'1'
+      },
+      {
+        id: '9',
+        name: '美丽宝典美容中心',
+        brand: '',
+        address: '苏州市吴中区月苑街19号',
+        isBonus:'1',
+        isValid:'1'
+      },
+      {
+        id: '10',
+        name: '百莲凯美容美体',
+        brand: '',
+        address: '西湖区湖底公园1号',
+        isBonus:'1',
+        isValid:'1'
+      },
+      {
+        id: '11',
+        name: '名媛聚美容生活馆',
+        brand: '',
+        address: '姑苏区凤凰街123号',
+        isBonus:'1',
+        isValid:'1'
+      },
+    ]
+  });
+});
+
 app.post('/api/my', function(req, res) {
   res.json({'user': 'admin', 'role': 'ADMIN', 'uid': 1});
 });

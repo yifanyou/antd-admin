@@ -41,7 +41,6 @@ NavPath.propTypes = propTypes;
 NavPath.defaultProps = defaultProps;
 
 function mapStateToProps(state) {
-
   return {
     navpath: state.menu.navpath
   }
