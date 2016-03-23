@@ -1,3 +1,9 @@
+## Antd Admin 
+It's a Bashboard built by Antd.
+
+
+Thx [fireyy](https://github.com/fireyy/react-antd-admin)
+
 ## React Ant.Design Admin UI
 
 ## Features
