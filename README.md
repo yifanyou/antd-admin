@@ -4,9 +4,9 @@ It's a Bashboard built by Antd.
 
 Thx [fireyy](https://github.com/fireyy/react-antd-admin)
 
-## React Ant.Design Admin UI
+### React Ant.Design Admin UI
 
-## Features
+### Features
 
 - [React](https://facebook.github.io/react/)
 - [Redux](https://github.com/reactjs/redux)
@@ -16,7 +16,7 @@ Thx [fireyy](https://github.com/fireyy/react-antd-admin)
 - [mocha](https://mochajs.org/)
 - [enzyme](https://github.com/airbnb/enzyme)
 
-## Getting Started
+### Getting Started
 
 Just clone the repo and install the necessary node modules:
 
@@ -27,7 +27,7 @@ $ npm install
 $ npm start
 ```
 
-## Run test spec
+### Run test spec
 
 ```shell
 $ npm run test
