@@ -18,7 +18,7 @@ const history = useRouterHistory(createHistory)({ basename: '' })
 const store = configureStore();
 
 const validate = function (next, replace, callback) {
-  const isLoggedIn = !!getCookie('uid')
+  const isLoggedIn = window.localStorage.getItem('token');
   if (!isLoggedIn && next.location.pathname != '/login') {
     replace('/login')
   }
@@ -33,7 +33,7 @@ ReactDOM.render(
         <Route component={App}>
           <Route path="home" component={Home}/>
           <Route path="4/401" component={Shop}/>
-          <Route path="4/401/shop/1" component={Detail}/>
+          <Route path="4/401/shop/:id" component={Detail}/>
         </Route>
         <Route path="login" component={Login}/>
       </Route>

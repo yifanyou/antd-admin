@@ -9,19 +9,17 @@ export const LOGIN_PENDING = 'LOGIN_PENDING';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_ERROR = 'LOGIN_ERROR';
 
-export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
+export const LOGOUT = 'LOGOUT';
 
-export function fetchProfile() {
-    let uid = getCookie('uid');
-
+export function fetchProfile(uid) {
+//    let uid = getCookie('uid');
     if (uid === undefined) {
         return {type: 'UID_NOT_FOUND'};
     }
-
     return {
         type: 'FETCH_PROFILE',
         payload: {
-          promise: api.post('/my')
+          promise: api.get('/v1/user/'+uid)
         }
     }
 }
@@ -30,9 +28,9 @@ export function login(user, password) {
   return {
       type: 'LOGIN',
       payload: {
-        promise: api.put('/login', {
+        promise: api.post('/v1/security/login', {
           data: {
-            user: user,
+            username: user,
             password: password
           }
         })

@@ -2,13 +2,14 @@ import {
   LOGIN_PENDING,
   LOGIN_SUCCESS,
   LOGIN_ERROR,
-  LOGOUT_SUCCESS,
+  LOGOUT,
   FETCH_PROFILE_PENDING,
   FETCH_PROFILE_SUCCESS
 } from '../actions/user';
 
 const initialState = {
   user: null,
+  profile:null,
   loggingIn: false,
   loggingOut: false,
   loginErrors: null
@@ -19,7 +20,8 @@ export default function auth(state = initialState, action = {}) {
     case LOGIN_PENDING:
       return Object.assign({}, initialState, {loggingIn: true});
     case LOGIN_SUCCESS:
-      return Object.assign({}, state, {user: action.payload.user, loggingIn: false, loginErrors: null});
+      window.localStorage.setItem('token', action.payload.token);
+      return Object.assign({}, initialState, {user: action.payload, loggingIn: false, loginErrors: null});
     case LOGIN_ERROR:
       return {
         ...state,
@@ -27,7 +29,8 @@ export default function auth(state = initialState, action = {}) {
         user: null,
         loginErrors: action.payload.message
       };
-    case LOGOUT_SUCCESS:
+    case LOGOUT:
+      window.localStorage.removeItem('token');
       return {
         ...state,
         loggingOut: false,
@@ -35,7 +38,10 @@ export default function auth(state = initialState, action = {}) {
         loginErrors: null
       };
     case FETCH_PROFILE_SUCCESS:
-      return Object.assign({}, state, {user: action.payload.user, loggingIn: false, loginErrors: null});
+      return Object.assign({}, initialState, {profile: action.payload, user: state.user});
+    case 'UID_NOT_FOUND':
+        console.log('UID_NOT_FOUND');
+      return state;
     default:
       return state;
   }

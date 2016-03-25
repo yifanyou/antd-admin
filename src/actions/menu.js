@@ -17,8 +17,8 @@ export function updateNavPath(path, key) {
 export function getAllMenu() {
   return {
     type: GET_ALL_MENU,
-    payload: {
-      promise: api.post('/menu')
-    }
+    // payload: {
+    //   promise: api.post('/menu')
+    // }
   }
 }
