@@ -10,11 +10,13 @@ const SubMenu = Menu.SubMenu
 import './index.less'
 
 const defaultProps = {
+  uid:0,
   items: [],
   currentIndex: 0
 }
 
 const propTypes = {
+  uid: PropTypes.number,
   items: PropTypes.array,
   currentIndex: PropTypes.number
 }
@@ -26,27 +28,30 @@ class Sidebar extends React.Component {
   }
 
   componentDidMount () {
-    this.props.getAllMenu()
+    const uid = this.props.uid;
+    this.props.getAllMenu(uid)
   }
 
   menuClickHandle (item) {
+    console.log(item)
     this.props.updateNavPath(item.keyPath, item.key)
   }
 
   render () {
     const { items } = this.props
+    console.log(items);
     let openKey = []
     const menu = items.map((item) => {
-      openKey.push('sub'+item.key)
+      openKey.push('sub'+item.id)
       return (
         <SubMenu
-          key={'sub'+item.key}
-          title={<span><Icon type={item.icon} />{item.name}</span>}
+          key={'sub'+item.id}
+          title={<span><Icon type='user' />{item.cname}</span>}
         >
-          {item.child.map((node) => {
+          {item.subMenu.map((node) => {
             return (
-              <Menu.Item key={'menu'+node.key}>
-              <Link to={'/'+ item.key +'/'+node.key} state={null}>{node.name}</Link>
+              <Menu.Item key={'menu'+node.id}>
+              <Link to={node.link} state={null}>{node.name}</Link>
               </Menu.Item>
             )
           })}

@@ -16,15 +16,16 @@ class App extends React.Component {
   }
 
   logout(){
-    this.props.logout();
+    this.props.actions.logout();
     this.context.router.replace('/login');
   }
 
   render() {
     const {user, profile, actions} = this.props;
+    var uid = user?user.uid:0;
     return (
       <div className="ant-layout-aside">
-        <Sidebar />
+        <Sidebar uid={uid} />
         <div className="ant-layout-main">
           <Header profile={profile} logout={this.logout.bind(this)} />
           <NavPath />

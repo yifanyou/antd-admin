@@ -32,8 +32,8 @@ ReactDOM.render(
         <IndexRedirect to="home" />
         <Route component={App}>
           <Route path="home" component={Home}/>
-          <Route path="4/401" component={Shop}/>
-          <Route path="4/401/shop/:id" component={Detail}/>
+          <Route path="shop_m" component={Shop}/>
+          <Route path="/shop/:id" component={Detail}/>
         </Route>
         <Route path="login" component={Login}/>
       </Route>

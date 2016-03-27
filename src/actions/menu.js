@@ -14,11 +14,12 @@ export function updateNavPath(path, key) {
   }
 }
 
-export function getAllMenu() {
+export function getAllMenu(id) {
+  var path = '/v1/user/'+id+'/menu';
   return {
     type: GET_ALL_MENU,
-    // payload: {
-    //   promise: api.post('/menu')
-    // }
+    payload: {
+      promise: api.get(path)
+    }
   }
 }
