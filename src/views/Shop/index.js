@@ -4,9 +4,12 @@
 import React, { PropTypes } from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import { Table, Modal, Button, Icon, Row, Col, Collapse, Alert } from 'antd'
+import { Radio, Switch, Form, Input, Table, Modal, Button, Icon, Row, Col, Collapse, Alert, notification} from 'antd'
 import { Link } from 'react-router'
-import {getAllRow, showAddModel, hideAddModel} from '../../actions/shop'
+import {getAllRow, insert, showAddModel, hideAddModel} from '../../actions/shop'
+
+const FormItem = Form.Item;
+const RadioGroup = Radio.Group
 
 const columns = [{
     title: 'ID',
@@ -68,13 +71,29 @@ export default class Shop extends React.Component {
     }
 
 
-    handleOk() {
+    handleOk(e) {
+        const formData = this.props.form.getFieldsValue();
+        console.log(this.props.form.getFieldsValue());
+        //校验
+        
+        //
         const {actions} = this.props
+        actions.insert(formData);
+        actions.getAllRow();
+        this.props.form.resetFields();
+        
+        
         setTimeout(() => {
             actions.hideAddModel();
-        }, 3000);
+        }, 1000);
+
+        notification.success({
+            message: '新增成功',
+            description: '',
+            duration: 1
+        });
     }
-    //
+
     // handleCancel() {
     //     this.props.hideAddModel();
     // }
@@ -89,7 +108,8 @@ export default class Shop extends React.Component {
     }
 
     render () {
-        const {data} = this.props;
+        const {data} = this.props
+        const { getFieldProps } = this.props.form
         return (
         <div>
             <div style={{marginBottom: 16}}>
@@ -99,18 +119,51 @@ export default class Shop extends React.Component {
             </div>
             <Modal ref="modal"
                    visible={this.props.visible}
-                   title="对话框标题" onOk={this.handleOk} onCancel={()=>this.props.actions.hideAddModel()}
+                   title="新增门店" onOk={this.handleOk} onCancel={()=>this.props.actions.hideAddModel()}
                    footer={[
             <Button key="back" type="ghost" size="large" onClick={()=>this.props.actions.hideAddModel()}>返 回</Button>,
-            <Button key="submit" type="primary" size="large" loading={this.props.loading} onClick={this.handleOk}>
+            <Button key="submit" type="primary" size="large" loading={this.props.loading} onClick={this.handleOk.bind(this)}>
               提 交
             </Button>
              ]}>
-                <p>对话框的内容</p>
-                <p>对话框的内容</p>
-                <p>对话框的内容</p>
-                <p>对话框的内容</p>
-                <p>对话框的内容</p>
+                <Form horizontal>
+                    <FormItem
+                        label="门店名称："
+                        labelCol={{ span: 6 }}
+                        wrapperCol={{ span: 14 }}>
+                        <Input {...getFieldProps('name')} />
+                    </FormItem>
+                    <FormItem
+                        label="所属品牌："
+                        labelCol={{ span: 6 }}
+                        wrapperCol={{ span: 14 }}>
+                        <Input {...getFieldProps('brand')} />
+                    </FormItem>
+                    <FormItem
+                        label="地址："
+                        labelCol={{ span: 6 }}
+                        wrapperCol={{ span: 14 }}>
+                        <Input {...getFieldProps('address')} />
+                    </FormItem>
+                    <FormItem
+                        label="是否上线："
+                        labelCol={{ span: 6 }}
+                        wrapperCol={{ span: 18 }}>
+                        <RadioGroup {...getFieldProps('isValid', { initialValue: '0' })}>
+                            <Radio value="0">下线</Radio>
+                            <Radio value="1">上线</Radio>
+                        </RadioGroup>
+                    </FormItem>
+                    <FormItem
+                        label="支持红包："
+                        labelCol={{ span: 6 }}
+                        wrapperCol={{ span: 18 }}>
+                        <RadioGroup {...getFieldProps('isBonus', { initialValue: '0' })}>
+                            <Radio value="0">不支持</Radio>
+                            <Radio value="1">支持</Radio>
+                        </RadioGroup>
+                    </FormItem>
+                </Form>
             </Modal>
             <Table rowKey={record => record.id} rowSelection={rowSelection} columns={columns} dataSource={data} />
         </div>
@@ -134,8 +187,10 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators({getAllRow,showAddModel,hideAddModel}, dispatch)
+        actions: bindActionCreators({getAllRow, insert, showAddModel, hideAddModel}, dispatch)
     }
 }
+
+Shop = Form.create()(Shop)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Shop)

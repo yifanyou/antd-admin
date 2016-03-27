@@ -5,6 +5,8 @@
 import {
     GET_ALL_ROW,
     GET_ALL_ROW_SUCCESS,
+    INSERT,
+    INSERT_SUCCESS,
     SHOW_ADD_MODAL,
     HIDE_ADD_MODAL
 } from '../actions/shop';
@@ -12,13 +14,16 @@ import {
 const initialState = {
     rows: [],
     visible: false,
-    loading: false
+    loading: false,
+    status:0
 }
 
 export default function shop(state = initialState, action = {}) {
     switch (action.type) {
         case GET_ALL_ROW_SUCCESS:
-            return Object.assign({}, initialState, {rows: action.payload.shops});
+            return Object.assign({}, initialState, {rows: action.payload});
+        case INSERT_SUCCESS:
+            return Object.assign({}, initialState, {status:1});
         case SHOW_ADD_MODAL:
             return Object.assign({}, state, {visible:true});
         case HIDE_ADD_MODAL:

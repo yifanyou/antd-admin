@@ -8,7 +8,6 @@ export default class PanelBox extends React.Component {
   }
 
   render () {
-
     return (
       <div className="panel-box ant-collapse">
         <div className="ant-collapse-item">

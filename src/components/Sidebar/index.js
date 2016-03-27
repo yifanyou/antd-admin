@@ -33,13 +33,11 @@ class Sidebar extends React.Component {
   }
 
   menuClickHandle (item) {
-    console.log(item)
     this.props.updateNavPath(item.keyPath, item.key)
   }
 
   render () {
     const { items } = this.props
-    console.log(items);
     let openKey = []
     const menu = items.map((item) => {
       openKey.push('sub'+item.id)

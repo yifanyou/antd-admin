@@ -9,11 +9,25 @@ export const GET_ALL_ROW_SUCCESS = 'GET_ALL_ROW_SUCCESS';
 export const SHOW_ADD_MODAL = 'SHOW_ADD_MODAL';
 export const HIDE_ADD_MODAL = 'HIDE_ADD_MODAL';
 
+export const INSERT = 'INSERT';
+export const INSERT_SUCCESS = 'INSERT_SUCCESS';
+
 export function getAllRow() {
     return {
         type: GET_ALL_ROW,
         payload: {
-            promise: api.post('/v/shop/test')
+            promise: api.get('/bd/shop/test')
+        }
+    }
+}
+
+export function insert(shop) {
+    return {
+        type: INSERT,
+        payload: {
+            promise: api.post('/bd/shop/test', {
+                data: shop
+            })
         }
     }
 }
@@ -29,3 +43,4 @@ export function hideAddModel() {
         type:HIDE_ADD_MODAL
     }
 }
+
