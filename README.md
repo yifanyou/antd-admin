@@ -1,7 +1,7 @@
 ## Antd Admin 
 It's a Bashboard built by Antd.
 
-Hello world
+Hello World
 
 Thx [fireyy](https://github.com/fireyy/react-antd-admin)
 
