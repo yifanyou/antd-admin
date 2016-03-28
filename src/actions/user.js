@@ -1,7 +1,5 @@
 import api from '../api'
 
-import {getCookie} from '../utils';
-
 export const FETCH_PROFILE_PENDING = 'FETCH_PROFILE_PENDING';
 export const FETCH_PROFILE_SUCCESS = 'FETCH_PROFILE_SUCCESS';
 
@@ -12,7 +10,6 @@ export const LOGIN_ERROR = 'LOGIN_ERROR';
 export const LOGOUT = 'LOGOUT';
 
 export function fetchProfile(uid) {
-//    let uid = getCookie('uid');
     if (uid === undefined) {
         return {type: 'UID_NOT_FOUND'};
     }

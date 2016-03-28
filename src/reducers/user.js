@@ -20,7 +20,7 @@ export default function auth(state = initialState, action = {}) {
     case LOGIN_PENDING:
       return Object.assign({}, initialState, {loggingIn: true});
     case LOGIN_SUCCESS:
-      window.localStorage.setItem('token', action.payload.token);
+      localStorage.setItem('token', action.payload.token);
       return Object.assign({}, initialState, {user: action.payload, loggingIn: false, loginErrors: null});
     case LOGIN_ERROR:
       return {
@@ -30,7 +30,7 @@ export default function auth(state = initialState, action = {}) {
         loginErrors: action.payload.message
       };
     case LOGOUT:
-      window.localStorage.removeItem('token');
+      localStorage.removeItem('token');
       return {
         ...state,
         loggingOut: false,

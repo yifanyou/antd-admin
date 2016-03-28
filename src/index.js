@@ -6,11 +6,12 @@ import {createHistory} from 'history'
 
 import configureStore from './store/configureStore'
 
-import App from './views/App'
-import Home from './views/Home'
-import Login from './views/Login'
-import Shop from './views/Shop'
-import Detail from './views/Detail'
+import App from 'containers/App'
+import Home from 'containers/Home'
+import Login from 'containers/Login'
+import Shop from 'containers/Shop'
+import Detail from 'containers/Detail'
+import NotFound from './components/Page'
 
 import {getCookie} from './utils';
 
@@ -36,6 +37,7 @@ ReactDOM.render(
           <Route path="/shop/:id" component={Detail}/>
         </Route>
         <Route path="login" component={Login}/>
+        <Route path="*" component={NotFound}/>
       </Route>
     </Router>
   </Provider>,

@@ -59,13 +59,11 @@ class Sidebar extends React.Component {
     return (
       <aside className="ant-layout-sider">
         <div className="ant-layout-logo">
-          <img src="/src/images/mnj-logo30.png" />
+          <img src="/src/static/images/mnj-logo30.png" />
           <font size="3" color="#00A0E8">美柠家管理系统</font>
         </div>
-        <Menu
-          mode="inline" theme="dark"
-          onClick={this.menuClickHandle}
-        >
+        <Menu mode="inline" theme="dark"
+          onClick={this.menuClickHandle}>
           {menu}
         </Menu>
       </aside>
