@@ -7,6 +7,8 @@ import {
   FETCH_PROFILE_SUCCESS
 } from '../actions/user';
 
+import auth from '../utils/auth'
+
 const initialState = {
   user: null,
   profile:null,
@@ -20,7 +22,7 @@ export default function auth(state = initialState, action = {}) {
     case LOGIN_PENDING:
       return Object.assign({}, initialState, {loggingIn: true});
     case LOGIN_SUCCESS:
-      localStorage.setItem('token', action.payload.token);
+      auth.login(aciton.payload.token)
       return Object.assign({}, initialState, {user: action.payload, loggingIn: false, loginErrors: null});
     case LOGIN_ERROR:
       return {
@@ -30,7 +32,7 @@ export default function auth(state = initialState, action = {}) {
         loginErrors: action.payload.message
       };
     case LOGOUT:
-      localStorage.removeItem('token');
+      auth.logout()
       return {
         ...state,
         loggingOut: false,

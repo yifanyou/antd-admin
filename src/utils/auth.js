@@ -4,6 +4,10 @@
 const TOKEN_NAME = 'token'
 
 module.exports = {
+    saveToken(token) {
+        return localStorage.setItem(TOKEN_NAME, token)
+    },
+
     getToken() {
         return localStorage.getItem(TOKEN_NAME)
     },
