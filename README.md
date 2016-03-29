@@ -1,7 +1,22 @@
 ## Antd Admin 
 It's a Bashboard built by Antd.
 
-Hello World
+### Getting Started
+
+Just clone the repo and install the necessary node modules:
+
+```shell
+$ git clone https://github.com/yifanyou/antd-admin
+$ cd react-antd-admin
+$ npm install
+$ npm start
+```
+
+### Run test spec
+
+```shell
+$ npm run test
+```
 
 Thx [fireyy](https://github.com/fireyy/react-antd-admin)
 
