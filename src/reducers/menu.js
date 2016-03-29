@@ -1,4 +1,5 @@
-import _ from 'lodash';
+import _ from 'lodash'
+import menuUtils from '../utils/menu'
 
 import {
     GET_ALL_MENU,
@@ -15,11 +16,13 @@ const initialState = {
 export default function menu(state = initialState, action = {}) {
   switch (action.type) {
     case GET_ALL_MENU_SUCCESS:
+      menuUtils.saveMenu(action.payload)
       return Object.assign({}, initialState, {items: action.payload});
     case UPDATE_NAVPATH:
-      let navpath = [], tmpOb, tmpKey, child;
+      let navpath = [], tmpOb, tmpKey, child
       if(action.payload.data){
         action.payload.data.reverse().map((item)=>{
+          console.log(state.items)
           if(item.indexOf('sub') != -1){
             tmpKey = item.replace('sub', '');
             tmpOb = _.find(state.items, function(o) {
@@ -46,7 +49,7 @@ export default function menu(state = initialState, action = {}) {
         })
       }
       return Object.assign({}, state, {
-        currentIndex: action.payload.key*1,
+        currentIndex: action.payload.key * 1,
         navpath: navpath
       });
     default:

@@ -6,7 +6,10 @@ import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import { Radio, Switch, Form, Input, Table, Modal, Button, Icon, Row, Col, Collapse, Alert, notification} from 'antd'
 import { Link } from 'react-router'
+import {updateNavPath} from '../../actions/menu'
 import {getAllRow, insert, showAddModel, hideAddModel} from '../../actions/shop'
+
+import menuUtils from '../../utils/menu'
 
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group
@@ -50,7 +53,7 @@ const columns = [{
         var url = '/4/401/shop/' + record.id;
         return (
             <span>
-            <Link to={url}>查看详情</Link>
+                <Link to={url}>查看详情</Link>
             </span>
     );
     }
@@ -72,20 +75,19 @@ export default class Shop extends React.Component {
 
 
     handleOk(e) {
-        const formData = this.props.form.getFieldsValue();
-        console.log(this.props.form.getFieldsValue());
+        const formData = this.props.form.getFieldsValue()
+        console.log(this.props.form.getFieldsValue())
         //校验
         
         //
         const {actions} = this.props
-        actions.insert(formData);
-        actions.getAllRow();
-        this.props.form.resetFields();
-        
+        actions.insert(formData)
+        actions.getAllRow()
+        this.props.form.resetFields()
         
         setTimeout(() => {
-            actions.hideAddModel();
-        }, 1000);
+            actions.hideAddModel()
+        }, 1000)
 
         notification.success({
             message: '新增成功',
@@ -99,17 +101,16 @@ export default class Shop extends React.Component {
     // }
 
     componentDidMount () {
-        const{actions} = this.props;
-        actions.getAllRow();
+        const{actions, route} = this.props
+        actions.getAllRow()
     }
 
     callback() {
-
     }
 
     render () {
         const {data} = this.props
-        const { getFieldProps } = this.props.form
+        const {getFieldProps} = this.props.form
         return (
         <div>
             <div style={{marginBottom: 16}}>
@@ -187,7 +188,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators({getAllRow, insert, showAddModel, hideAddModel}, dispatch)
+        actions: bindActionCreators({getAllRow, insert, showAddModel, hideAddModel, updateNavPath}, dispatch)
     }
 }
 

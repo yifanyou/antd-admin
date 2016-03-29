@@ -1,11 +1,13 @@
 import React, {PropTypes} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import NavPath from '../../components/NavPath'
+import NavPath from '../../containers/NavPath'
+import Sidebar from '../../containers/Sidebar'
 import Header from '../../components/Header'
-import Sidebar from '../../components/Sidebar'
 import Footer from '../../components/Footer'
-import {logout, fetchProfile} from '../../actions/user';
+import {logout, fetchProfile} from '../../actions/user'
+
+import authUtils from '../../utils/auth'
 
 import 'antd/style/index.less';
 import './index.less';
@@ -15,17 +17,23 @@ class App extends React.Component {
     super(props);
   }
 
+  componentWillMount(){
+    const {actions, uid} = this.props
+    let realUid = uid?uid:authUtils.getUid()
+    actions.fetchProfile(realUid)
+  }
+
   logout(){
     this.props.actions.logout();
     this.context.router.replace('/login');
   }
 
   render() {
-    const {user, profile, actions} = this.props;
-    var uid = user?user.uid:0;
+    const {uid, profile, actions} = this.props
+    let realUid = uid?uid:authUtils.getUid()
     return (
       <div className="ant-layout-aside">
-        <Sidebar uid={uid} />
+        <Sidebar uid={realUid} />
         <div className="ant-layout-main">
           <Header profile={profile} logout={this.logout.bind(this)} />
           <NavPath />
@@ -42,7 +50,7 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-  user: PropTypes.object,
+  uid: PropTypes.number,
   profile: PropTypes.object,
   children: PropTypes.node.isRequired
 };
@@ -53,13 +61,13 @@ App.contextTypes = {
   store: PropTypes.object.isRequired
 };
 
-const mapStateToProps = (state) => {
-  const {user} = state;
+function mapStateToProps(state) {
+  const {user} = state
   return {
-      user: user ? user.user : null,
-      profile: user ? user.profile:null
-  };
-};
+    uid: user.uid ? user.uid : null,
+    profile: user.profile ? user.profile:null
+  }
+}
 
 function mapDispatchToProps(dispatch) {
   return {

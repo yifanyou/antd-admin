@@ -3,16 +3,11 @@ import { bindActionCreators } from 'redux'
 import { Breadcrumb } from 'antd'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
+import { updateNavPath } from '../../actions/menu'
+
+import menuUtils from '../../utils/menu'
 
 import './index.less'
-
-const defaultProps = {
-  navpath: []
-}
-
-const propTypes = {
-  navpath: PropTypes.array
-}
 
 class NavPath extends React.Component {
   constructor (props) {
@@ -21,7 +16,10 @@ class NavPath extends React.Component {
 
   render () {
     const { navpath } = this.props
-    const bread = navpath.map((item)=>{
+    let rightNavPath = menuUtils.getNavPath()
+    rightNavPath = navpath.length>0?navpath:rightNavPath
+
+    const bread = rightNavPath.map((item)=>{
       return (
         <Breadcrumb.Item key={'bc-'+item.key}>{item.name}</Breadcrumb.Item>
       )
@@ -37,8 +35,13 @@ class NavPath extends React.Component {
   }
 }
 
-NavPath.propTypes = propTypes;
-NavPath.defaultProps = defaultProps;
+NavPath.propTypes = {
+  navpath: PropTypes.array
+}
+
+NavPath.defaultProps = {
+  navpath: []
+}
 
 function mapStateToProps(state) {
   return {

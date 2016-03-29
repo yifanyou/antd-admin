@@ -19,7 +19,7 @@ export default class Header extends React.Component {
 
   render () {
     const {profile} = this.props
-    const username = profile?profile.userName:''
+    const username = profile?profile.userName:'loading'
     return (
       <div className='ant-layout-header'>
         <Menu className="header-menu" onClick={this.handleClick.bind(this)} mode="horizontal">

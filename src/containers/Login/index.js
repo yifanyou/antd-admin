@@ -2,25 +2,13 @@ import React, { PropTypes } from 'react'
 import { Form, Input, Button, Row, Col, notification } from 'antd'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { login, fetchProfile } from '../../actions/user'
+import { login } from '../../actions/user'
 
 const FormItem = Form.Item
 
 import './index.less'
 
-const propTypes = {
-  user: PropTypes.number,
-  loggingIn: PropTypes.bool,
-  loginErrors: PropTypes.string
-};
-
-const contextTypes = {
-  router: PropTypes.object.isRequired,
-  store: PropTypes.object.isRequired
-};
-
 class Login extends React.Component {
-
   constructor (props) {
     super(props)
   }
@@ -28,9 +16,15 @@ class Login extends React.Component {
   componentWillReceiveProps(nextProps) {
       const error = nextProps.loginErrors;
       const isLoggingIn = nextProps.loggingIn;
-      const user = nextProps.user;
-      
-      if (error != this.props.loginErrors && error) {
+      const uid = nextProps.uid;
+
+      if(error && error.indexOf('offline')>0){
+          notification.error({
+              message: '登录失败',
+              description: '网络问题',
+              duration: 1
+          });
+      }else if (error != this.props.loginErrors && error) {
           notification.error({
               message: '登录失败',
               description: '错误的用户名或者密码',
@@ -38,7 +32,7 @@ class Login extends React.Component {
           });
       }
 
-      if (!isLoggingIn && !error && user)  {
+      if (!isLoggingIn && !error && uid)  {
           notification.success({
               message: '登录成功',
               description: '',
@@ -46,16 +40,17 @@ class Login extends React.Component {
           });
       }
 
-      if (user) {
-          this.props.actions.fetchProfile(user)
+      if (uid) {
           this.context.router.replace('/home');
       }
   }
 
   handleSubmit (e) {
     e.preventDefault()
+    const {actions} = this.props
+      
     const data = this.props.form.getFieldsValue()
-    this.props.actions.login(data.user, data.password)
+    actions.login(data.user, data.password)
   }
 
   render () {
@@ -67,16 +62,14 @@ class Login extends React.Component {
             <FormItem
               label='用户名：'
               labelCol={{ span: 6 }}
-              wrapperCol={{ span: 14 }}
-            >
-              <Input placeholder='admin' {...getFieldProps('user')} />
+              wrapperCol={{ span: 14 }}>
+              <Input placeholder='请输入账号' {...getFieldProps('user')} />
             </FormItem>
             <FormItem
               label='密码：'
               labelCol={{ span: 6 }}
-              wrapperCol={{ span: 14 }}
-            >
-              <Input type='password' placeholder='123456' {...getFieldProps('password')} />
+              wrapperCol={{ span: 14 }}>
+              <Input type='password' placeholder='请输入密码' {...getFieldProps('password')} />
             </FormItem>
             <Row>
               <Col span='16' offset='6'>
@@ -90,24 +83,30 @@ class Login extends React.Component {
   }
 }
 
-Login.contextTypes = contextTypes;
+Login.contextTypes = {
+    router: PropTypes.object.isRequired,
+    store: PropTypes.object.isRequired
+}
 
-Login.propTypes = propTypes;
+Login.propTypes = {
+    uid: PropTypes.number,
+    loggingIn: PropTypes.bool,
+    loginErrors: PropTypes.string
+}
 
 Login = Form.create()(Login);
 
 function mapStateToProps(state) {
   const {user} = state;
-  if (user.user) {
-      return {user: user.user.uid, loggingIn: user.loggingIn, loginErrors: ''};
+  if (user.uid) {
+      return {uid: user.uid, loggingIn: user.loggingIn, loginErrors: ''};
   }
-
-  return {user: null, loggingIn: user.loggingIn, loginErrors: user.loginErrors};
+  return {uid: null, loggingIn: user.loggingIn, loginErrors: user.loginErrors};
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({login, fetchProfile}, dispatch)
+    actions: bindActionCreators({login}, dispatch)
   }
 }
 

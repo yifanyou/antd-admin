@@ -4,31 +4,18 @@ import { connect } from 'react-redux'
 import { Menu, Icon } from 'antd'
 import { Link } from 'react-router'
 import { getAllMenu, updateNavPath } from '../../actions/menu'
-
-const SubMenu = Menu.SubMenu
-
+import authUtils from '../../utils/auth'
 import './index.less'
 
-const defaultProps = {
-  uid:0,
-  items: [],
-  currentIndex: 0
-}
-
-const propTypes = {
-  uid: PropTypes.number,
-  items: PropTypes.array,
-  currentIndex: PropTypes.number
-}
+const SubMenu = Menu.SubMenu
 
 class Sidebar extends React.Component {
   constructor (props) {
     super(props)
-    this.menuClickHandle = this.menuClickHandle.bind(this);
   }
 
-  componentDidMount () {
-    const uid = this.props.uid;
+  componentDidMount() {
+    let uid = authUtils.getUid()
     this.props.getAllMenu(uid)
   }
 
@@ -37,19 +24,18 @@ class Sidebar extends React.Component {
   }
 
   render () {
-    const { items } = this.props
+    const {items} = this.props
     let openKey = []
     const menu = items.map((item) => {
       openKey.push('sub'+item.id)
       return (
         <SubMenu
           key={'sub'+item.id}
-          title={<span><Icon type='user' />{item.cname}</span>}
-        >
+          title={<span><Icon type='user' />{item.cname}</span>}>
           {item.subMenu.map((node) => {
             return (
               <Menu.Item key={'menu'+node.id}>
-              <Link to={node.link} state={null}>{node.name}</Link>
+                <Link to={node.link} state={null}>{node.name}</Link>
               </Menu.Item>
             )
           })}
@@ -63,7 +49,7 @@ class Sidebar extends React.Component {
           <font size="3" color="#00A0E8">美柠家管理系统</font>
         </div>
         <Menu mode="inline" theme="dark"
-          onClick={this.menuClickHandle}>
+          onClick={this.menuClickHandle.bind(this)}>
           {menu}
         </Menu>
       </aside>
@@ -71,8 +57,15 @@ class Sidebar extends React.Component {
   }
 }
 
-Sidebar.propTypes = propTypes;
-Sidebar.defaultProps = defaultProps;
+Sidebar.propTypes = {
+    items: PropTypes.array,
+    currentIndex: PropTypes.number
+}
+
+Sidebar.defaultProps = {
+  items: [],
+  currentIndex: 0
+}
 
 function mapStateToProps(state) {
   return {

@@ -6,20 +6,20 @@ import {createHistory} from 'history'
 
 import configureStore from './store/configureStore'
 
-import App from 'containers/App'
-import Home from 'containers/Home'
-import Login from 'containers/Login'
-import Shop from 'containers/Shop'
-import Detail from 'containers/Detail'
-import NotFound from './components/Page'
+import App from './containers/App'
+import Home from './containers/Home'
+import Login from './containers/Login'
+import Shop from './containers/Shop'
+import Detail from './containers/Detail'
+import NotFound from './components/Page/NotFound'
 
-import {getCookie} from './utils';
+import authUtils from './utils/auth'
 
 const history = useRouterHistory(createHistory)({ basename: '' })
 const store = configureStore();
 
 const validate = function (next, replace, callback) {
-  const isLoggedIn = window.localStorage.getItem('token');
+  const isLoggedIn = authUtils.getToken()
   if (!isLoggedIn && next.location.pathname != '/login') {
     replace('/login')
   }

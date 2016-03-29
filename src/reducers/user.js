@@ -4,13 +4,14 @@ import {
   LOGIN_ERROR,
   LOGOUT,
   FETCH_PROFILE_PENDING,
-  FETCH_PROFILE_SUCCESS
+  FETCH_PROFILE_SUCCESS,
+  UID_NOT_FOUND
 } from '../actions/user';
 
-import auth from '../utils/auth'
+import authUtils from '../utils/auth'
 
 const initialState = {
-  user: null,
+  uid: null,
   profile:null,
   loggingIn: false,
   loggingOut: false,
@@ -22,27 +23,26 @@ export default function auth(state = initialState, action = {}) {
     case LOGIN_PENDING:
       return Object.assign({}, initialState, {loggingIn: true});
     case LOGIN_SUCCESS:
-      auth.login(aciton.payload.token)
-      return Object.assign({}, initialState, {user: action.payload, loggingIn: false, loginErrors: null});
+      authUtils.login(action.payload.token, action.payload.uid)
+      return Object.assign({}, initialState, {uid: action.payload.uid, loggingIn: false, loginErrors: null});
     case LOGIN_ERROR:
       return {
         ...state,
         loggingIn: false,
-        user: null,
+        uid: null,
         loginErrors: action.payload.message
       };
     case LOGOUT:
-      auth.logout()
+      authUtils.logout()
       return {
         ...state,
         loggingOut: false,
-        user: null,
+        uid: null,
         loginErrors: null
       };
     case FETCH_PROFILE_SUCCESS:
-      return Object.assign({}, initialState, {profile: action.payload, user: state.user});
-    case 'UID_NOT_FOUND':
-        console.log('UID_NOT_FOUND');
+      return Object.assign({}, initialState, {profile: action.payload, uid: state.uid});
+    case UID_NOT_FOUND:
       return state;
     default:
       return state;
