@@ -6,10 +6,7 @@ import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import { Radio, Switch, Form, Input, Table, Modal, Button, Icon, Row, Col, Collapse, Alert, notification} from 'antd'
 import { Link } from 'react-router'
-import {updateNavPath} from '../../actions/menu'
 import {getAllRow, insert, showAddModel, hideAddModel} from '../../actions/shop'
-
-import menuUtils from '../../utils/menu'
 
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group
@@ -188,7 +185,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators({getAllRow, insert, showAddModel, hideAddModel, updateNavPath}, dispatch)
+        actions: bindActionCreators({getAllRow, insert, showAddModel, hideAddModel}, dispatch)
     }
 }
 

@@ -1,9 +1,7 @@
 import React, {PropTypes} from 'react'
-import { bindActionCreators } from 'redux'
 import { Breadcrumb } from 'antd'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
-import { updateNavPath } from '../../actions/menu'
 
 import menuUtils from '../../utils/menu'
 

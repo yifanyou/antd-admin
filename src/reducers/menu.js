@@ -22,7 +22,6 @@ export default function menu(state = initialState, action = {}) {
       let navpath = [], tmpOb, tmpKey, child
       if(action.payload.data){
         action.payload.data.reverse().map((item)=>{
-          console.log(state.items)
           if(item.indexOf('sub') != -1){
             tmpKey = item.replace('sub', '');
             tmpOb = _.find(state.items, function(o) {
