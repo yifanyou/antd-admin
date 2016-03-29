@@ -3,14 +3,26 @@
  */
 import api from '../api'
 
-export const GET_ALL_ROW = 'GET_ALL_ROW';
-export const GET_ALL_ROW_SUCCESS = 'GET_ALL_ROW_SUCCESS';
+export const GET_ALL_ROW = 'GET_ALL_ROW'
+export const GET_ALL_ROW_SUCCESS = 'GET_ALL_ROW_SUCCESS'
 
-export const SHOW_ADD_MODAL = 'SHOW_ADD_MODAL';
-export const HIDE_ADD_MODAL = 'HIDE_ADD_MODAL';
+export const SHOW_ADD_MODAL = 'SHOW_ADD_MODAL'
+export const HIDE_ADD_MODAL = 'HIDE_ADD_MODAL'
 
-export const INSERT = 'INSERT';
-export const INSERT_SUCCESS = 'INSERT_SUCCESS';
+export const INSERT = 'INSERT'
+export const INSERT_SUCCESS = 'INSERT_SUCCESS'
+
+//check
+export const CHECK = 'CHECK'
+
+export function check(selectedRowKeys){
+    return {
+        type:CHECK,
+        payload: {
+            selectedRowKeys:selectedRowKeys
+        }
+    }
+}
 
 export function getAllRow() {
     return {

@@ -5,11 +5,12 @@ import React, { PropTypes } from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import { Radio, Switch, Form, Input, Table, Modal, Button, Icon, Row, Col, Collapse, Alert, notification} from 'antd'
-import { Link } from 'react-router'
-import {getAllRow, insert, showAddModel, hideAddModel} from '../../actions/shop'
+import {Link} from 'react-router'
+import {check, getAllRow, insert, showAddModel, hideAddModel} from '../../actions/shop'
 
-const FormItem = Form.Item;
+const FormItem = Form.Item
 const RadioGroup = Radio.Group
+const confirm = Modal.confirm
 
 const columns = [{
     title: 'ID',
@@ -47,7 +48,7 @@ const columns = [{
     key: 'operation',
     width: 80,
     render(text, record) {
-        var url = '/4/401/shop/' + record.id;
+        var url = '/shop/' + record.id;
         return (
             <span>
                 <Link to={url}>查看详情</Link>
@@ -56,24 +57,13 @@ const columns = [{
     }
 }];
 
-// 通过 rowSelection 对象表明需要行选择
-const rowSelection = {
-    getCheckboxProps(record) {
-        return {
-
-        };
-    }
-};
-
 export default class Shop extends React.Component {
     constructor (props) {
         super(props)
     }
 
-
     handleOk(e) {
         const formData = this.props.form.getFieldsValue()
-        console.log(this.props.form.getFieldsValue())
         //校验
         
         //
@@ -90,31 +80,50 @@ export default class Shop extends React.Component {
             message: '新增成功',
             description: '',
             duration: 1
+        })
+    }
+
+    handleDelete(){
+        confirm({
+            title: '您是否确认要删除勾选内容',
+            content: '',
+            onOk() {
+
+            },
+            onCancel() {}
         });
     }
 
-    // handleCancel() {
-    //     this.props.hideAddModel();
-    // }
-
     componentDidMount () {
-        const{actions, route} = this.props
+        const{actions} = this.props
         actions.getAllRow()
+    }
+
+    onSelectChange(selectedRowKeys) {
+        const{actions} = this.props
+        actions.check(selectedRowKeys)
     }
 
     callback() {
     }
 
     render () {
-        const {data} = this.props
+        const {data, actions, selectedRowKeys} = this.props
         const {getFieldProps} = this.props.form
+
+        const rowSelection = {
+            selectedRowKeys,
+            onChange: this.onSelectChange.bind(this)
+        };
+
         return (
         <div>
             <div style={{marginBottom: 16}}>
-                <Button style={{marginRight: 5}} type="primary" onClick={()=>this.props.actions.showAddModel()}>添加</Button>
-                <Button style={{marginRight: 5}} type="primary" >修改</Button>
-                <Button style={{marginRight: 5}} type="primary">删除</Button>
+                <Button style={{marginRight: 5}} type="primary" onClick={()=>actions.showAddModel()}>添加</Button>
+                <Button style={{marginRight: 5}} type="primary">修改</Button>
+                <Button style={{marginRight: 5}} type="primary" onClick={this.handleDelete}>删除</Button>
             </div>
+
             <Modal ref="modal"
                    visible={this.props.visible}
                    title="新增门店" onOk={this.handleOk} onCancel={()=>this.props.actions.hideAddModel()}
@@ -163,6 +172,7 @@ export default class Shop extends React.Component {
                     </FormItem>
                 </Form>
             </Modal>
+
             <Table rowKey={record => record.id} rowSelection={rowSelection} columns={columns} dataSource={data} />
         </div>
         )
@@ -172,20 +182,26 @@ export default class Shop extends React.Component {
 Shop.propTypes = {
     loading: PropTypes.bool,
     visible: PropTypes.bool,
-    data: PropTypes.array
+    data: PropTypes.array,
+    selectedRowKeys: PropTypes.array
+}
+
+Shop.defaultProps = {
+    selectedRowKeys: []
 }
 
 function mapStateToProps(state) {
     return {
         data: state.shop.rows,
         visible: state.shop.visible,
-        loading: state.shop.loading
+        loading: state.shop.loading,
+        selectedRowKeys: state.shop.selectedRowKeys
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators({getAllRow, insert, showAddModel, hideAddModel}, dispatch)
+        actions: bindActionCreators({check, getAllRow, insert, showAddModel, hideAddModel}, dispatch)
     }
 }
 

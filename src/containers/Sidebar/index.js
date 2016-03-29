@@ -49,6 +49,7 @@ class Sidebar extends React.Component {
           <font size="3" color="#00A0E8">美柠家管理系统</font>
         </div>
         <Menu mode="inline" theme="dark"
+          openKeys={openKey}
           onClick={this.menuClickHandle.bind(this)}>
           {menu}
         </Menu>

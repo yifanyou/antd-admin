@@ -24,7 +24,7 @@ export default class Detail extends React.Component {
         var name = 'hello world:' + this.props.params.id;
         return (
             <div>
-                <p><Link to={'/4/401'}>返回</Link></p>
+                <p><Link to={'/shop_m'}>返回</Link></p>
                 {name}
             </div>
         )
