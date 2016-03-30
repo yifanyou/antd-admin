@@ -12,6 +12,9 @@ export const HIDE_ADD_MODAL = 'HIDE_ADD_MODAL'
 export const INSERT = 'INSERT'
 export const INSERT_SUCCESS = 'INSERT_SUCCESS'
 
+export const DELETE = 'DELETE'
+export const DELETE_SUCCESS = 'DELETE_SUCCESS'
+
 //check
 export const CHECK = 'CHECK'
 
@@ -39,6 +42,18 @@ export function insert(shop) {
         payload: {
             promise: api.post('/bd/shop/test', {
                 data: shop
+            })
+        }
+    }
+}
+
+export function del(ids, callback) {
+    return {
+        type: DELETE,
+        payload: {
+            promise: api.del('/bd/shop/test', {
+                data: ids,
+                callback: callback
             })
         }
     }

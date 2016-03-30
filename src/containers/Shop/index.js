@@ -1,12 +1,13 @@
 /**
  * Created by youyifan on 2016/3/20.
  */
+import _ from 'lodash'
 import React, { PropTypes } from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import { Radio, Switch, Form, Input, Table, Modal, Button, Icon, Row, Col, Collapse, Alert, notification} from 'antd'
 import {Link} from 'react-router'
-import {check, getAllRow, insert, showAddModel, hideAddModel} from '../../actions/shop'
+import {check, getAllRow, insert, del, showAddModel, hideAddModel} from '../../actions/shop'
 
 const FormItem = Form.Item
 const RadioGroup = Radio.Group
@@ -84,11 +85,28 @@ export default class Shop extends React.Component {
     }
 
     handleDelete(){
+        const {actions, selectedRowKeys} = this.props
+        const callback = this.callback.bind(this)
+
+        if(!selectedRowKeys||selectedRowKeys.length<=0){
+            notification.error({
+                message: '请勾选删除项',
+                description: '',
+                duration: 1
+            })
+            return
+        }
+
         confirm({
-            title: '您是否确认要删除勾选内容',
+            title: '您是否确认要删除勾选项',
             content: '',
             onOk() {
-
+                console.log(selectedRowKeys)
+                let ids = new Array()
+                _.forEach(selectedRowKeys, function(id, i){
+                    ids[i] = {id:id}
+                })
+                actions.del(JSON.stringify(ids), callback)
             },
             onCancel() {}
         });
@@ -105,6 +123,8 @@ export default class Shop extends React.Component {
     }
 
     callback() {
+        const {actions} = this.props
+        actions.getAllRow()
     }
 
     render () {
@@ -121,7 +141,7 @@ export default class Shop extends React.Component {
             <div style={{marginBottom: 16}}>
                 <Button style={{marginRight: 5}} type="primary" onClick={()=>actions.showAddModel()}>添加</Button>
                 <Button style={{marginRight: 5}} type="primary">修改</Button>
-                <Button style={{marginRight: 5}} type="primary" onClick={this.handleDelete}>删除</Button>
+                <Button style={{marginRight: 5}} type="primary" onClick={this.handleDelete.bind(this)}>删除</Button>
             </div>
 
             <Modal ref="modal"
@@ -201,7 +221,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators({check, getAllRow, insert, showAddModel, hideAddModel}, dispatch)
+        actions: bindActionCreators({check, getAllRow, insert, del, showAddModel, hideAddModel}, dispatch)
     }
 }
 

@@ -18,7 +18,7 @@ class _Api {
       throw new Error('baseURI option is required');
 
     methods.forEach(method =>
-      this[method] = (path, { params, data } = {}) => new Promise((resolve, reject) => {
+      this[method] = (path, { params, data, callback } = {}) => new Promise((resolve, reject) => {
         const request = superagent[method](this.opts.baseURI + path);
 
         if (params) {
@@ -33,7 +33,12 @@ class _Api {
           request.send(data);
         }
 
-        request.end((err, { body } = {}) => err ? reject(body || err) : resolve(body));
+        if(callback) {
+            request.end(callback)
+        } else {
+            request.end((err, { body } = {}) => err ? reject(body || err) : resolve(body))
+        }
+
       })
     );
   }
