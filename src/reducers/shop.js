@@ -5,16 +5,17 @@
 import {
     CHECK,
     GET_ALL_ROW_SUCCESS,
+    INSERT_PENDING,
     INSERT_SUCCESS,
-    DELETE_SUCCESS,
-    SHOW_ADD_MODAL,
-    HIDE_ADD_MODAL
+    UPDATE_PENDING,
+    UPDATE_SUCCESS,
+    DELETE_SUCCESS
 } from '../actions/shop'
 
 const initialState = {
     rows: [],
-    visible: false,
-    loading: false,
+    // visible: false,
+    // loading: false,
     status:0,
     selectedRowKeys:[]
 }
@@ -25,15 +26,16 @@ export default function shop(state = initialState, action = {}) {
             return Object.assign({}, state, {selectedRowKeys: action.payload.selectedRowKeys})
         case GET_ALL_ROW_SUCCESS:
             return Object.assign({}, initialState, {rows: action.payload})
+        // case INSERT_PENDING:
+        //     return Object.assign({}, state, {loading:true})
         case INSERT_SUCCESS:
             return Object.assign({}, initialState, {status:action.payload})
+        // case UPDATE_PENDING:
+        //     return Object.assign({}, state, {loading:true})
+        case UPDATE_SUCCESS:
+            return Object.assign({}, initialState, {status:action.payload})
         case DELETE_SUCCESS:
-
             return Object.assign({}, initialState, {status:action.payload, rows:state.rows})
-        case SHOW_ADD_MODAL:
-            return Object.assign({}, state, {visible:true})
-        case HIDE_ADD_MODAL:
-            return Object.assign({}, state, {visible:false})
         default:
             return state
     }

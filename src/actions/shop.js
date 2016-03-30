@@ -6,11 +6,13 @@ import api from '../api'
 export const GET_ALL_ROW = 'GET_ALL_ROW'
 export const GET_ALL_ROW_SUCCESS = 'GET_ALL_ROW_SUCCESS'
 
-export const SHOW_ADD_MODAL = 'SHOW_ADD_MODAL'
-export const HIDE_ADD_MODAL = 'HIDE_ADD_MODAL'
-
 export const INSERT = 'INSERT'
+export const INSERT_PENDING = 'INSERT_PENDING'
 export const INSERT_SUCCESS = 'INSERT_SUCCESS'
+
+export const UPDATE = 'UPDATE'
+export const UPDATE_PENDING = 'UPDATE_PENDING'
+export const UPDATE_SUCCESS = 'UPDATE_SUCCESS'
 
 export const DELETE = 'DELETE'
 export const DELETE_SUCCESS = 'DELETE_SUCCESS'
@@ -36,11 +38,23 @@ export function getAllRow() {
     }
 }
 
-export function insert(shop) {
+export function insert(shop, callback) {
     return {
         type: INSERT,
         payload: {
             promise: api.post('/bd/shop/test', {
+                data: shop,
+                callback:callback
+            })
+        }
+    }
+}
+
+export function update(shop) {
+    return {
+        type: UPDATE,
+        payload: {
+            promise: api.put('/bd/shop/test', {
                 data: shop
             })
         }
@@ -58,16 +72,3 @@ export function del(ids, callback) {
         }
     }
 }
-
-export function showAddModel() {
-    return {
-        type:SHOW_ADD_MODAL
-    }
-}
-
-export function hideAddModel() {
-    return {
-        type:HIDE_ADD_MODAL
-    }
-}
-
