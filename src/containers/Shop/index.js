@@ -133,11 +133,12 @@ export default class Shop extends React.Component {
     }
 
     render () {
+        console.log('shop index ................................')
         const {data, actions, selectedRowKeys} = this.props
         const rowSelection = {
             selectedRowKeys,
             onChange: this.onSelectChange.bind(this)
-        };
+        }
 
         return (
             <div>
@@ -148,7 +149,7 @@ export default class Shop extends React.Component {
                 </div>
                 <Table rowKey={record => record.id} rowSelection={rowSelection} columns={columns} dataSource={data} />
 
-                <EditModal onOk={this.handleOk.bind(this)} />
+                <EditModal onOk={this.handleOk} />
             </div>
         )
     }

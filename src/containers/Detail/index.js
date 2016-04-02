@@ -22,6 +22,7 @@ export default class Detail extends React.Component {
 
     render () {
         var name = 'hello world:' + this.props.params.id;
+        console.log(this.props.returnTo)
         return (
             <div>
                 <p><Link to={'/shop_m'}>返回</Link></p>
