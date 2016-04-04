@@ -3,9 +3,10 @@
  */
 import api from '../api'
 import gridHelper from '../data/grid'
+import _ from 'lodash'
 
-export const GET_ALL_ROW = 'GET_ALL_ROW'
-export const GET_ALL_ROW_SUCCESS = 'GET_ALL_ROW_SUCCESS'
+export const QUERY = 'QUERY'
+export const QUERY_SUCCESS = 'QUERY_SUCCESS'
 
 export const INSERT = 'INSERT'
 export const INSERT_PENDING = 'INSERT_PENDING'
@@ -18,6 +19,9 @@ export const UPDATE_SUCCESS = 'UPDATE_SUCCESS'
 export const DELETE = 'DELETE'
 export const DELETE_SUCCESS = 'DELETE_SUCCESS'
 
+//pagination
+export const UPDATE_PAGINATION = 'UPDATE_PAGINATION'
+
 //check
 export const CHECK = 'CHECK'
 
@@ -26,17 +30,16 @@ const url = gridHelper.lookupGrid('shop').url
 export function check(selectedRowKeys){
     return {
         type:CHECK,
-        payload: {
-            selectedRowKeys:selectedRowKeys
-        }
+        selectedRowKeys:selectedRowKeys
     }
 }
 
-export function getAllRow() {
+export function query(request) {
+    let urlRight = buildUrl(url, request)
     return {
-        type: GET_ALL_ROW,
+        type: QUERY,
         payload: {
-            promise: api.get(url)
+            promise: api.get(urlRight)
         }
     }
 }
@@ -47,7 +50,7 @@ export function insert(shop, callback) {
         payload: {
             promise: api.post(url, {
                 data: shop,
-                callback:callback
+                callback: callback
             })
         }
     }
@@ -74,4 +77,20 @@ export function del(ids, callback) {
             })
         }
     }
+}
+
+export function updatePagination(pagination){
+    return {
+        type: UPDATE_PAGINATION,
+        pagination: pagination
+    }
+}
+
+function buildUrl(url , request){
+    let params = ''
+    if(request!=null)
+        _.forIn(request, function(value, key) {
+            params += '&' + key + '=' + value
+        })
+    return request!=null?(url+ '?' + params):url
 }

@@ -20,8 +20,7 @@ export default class Detail extends React.Component {
 
     componentWillMount () {
         const {actions} = this.props
-        actions.receiveDetail()
-
+        actions.receiveDetail('/bd/shop/test/shop/1')
     }
 
     callback() {
@@ -32,19 +31,14 @@ export default class Detail extends React.Component {
         const {data} = this.props
         const {getFieldProps} = this.props.form
 
-        const dd = {a:3, b:4}
-        let dataArray = []
-        _.transform(data, function(dataArray, n, key){
-            dataArray[key] = n
-        })
-        console.log(dataArray)
-
         const grid = gridHelper.lookupGrid('shop')
         const columns = grid.columns
+        const rightColumns = _.dropRight(columns, 1)
 
         const formItemLayout = {
             labelCol: { span: 2 },
             wrapperCol: { span: 10 },
+            fontWeight: {bold:''}
         };
 
         return (
@@ -53,9 +47,9 @@ export default class Detail extends React.Component {
                 <br />
 
                 <Form horizontal onSubmit={this.handleSubmit}>
-                    {columns.map(column => (
-                        <FormItem {...formItemLayout} label={column.title + '：'}>
-                            <p className="ant-form-text" id={column.dataIndex} name={column.dataIndex}></p>
+                    {rightColumns.map(column => (
+                        <FormItem {...formItemLayout} label={column.title + '：'} key={column.dataIndex}>
+                            <p className="ant-form-text" id={column.dataIndex} name={column.dataIndex}>{data!=null?data[column.dataIndex]:''}</p>
                         </FormItem>
                     ))}
                 </Form>

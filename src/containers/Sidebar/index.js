@@ -26,6 +26,7 @@ class Sidebar extends React.Component {
   render () {
     const {items} = this.props
     let openKey = []
+
     const menu = items.map((item) => {
       openKey.push('sub'+item.id)
       return (
@@ -35,7 +36,7 @@ class Sidebar extends React.Component {
           {item.subMenu.map((node) => {
             return (
               <Menu.Item key={'menu'+node.id}>
-                <Link to={node.link} state={null}>{node.name}</Link>
+                <Link to={node.link}>{node.name}</Link>
               </Menu.Item>
             )
           })}
