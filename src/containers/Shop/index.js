@@ -10,53 +10,9 @@ import {Link} from 'react-router'
 import {check, getAllRow, insert, update, del} from '../../actions/shop'
 import {showModal} from '../../actions/editmodal'
 import EditModal from '../Modal/EditModal'
+import gridHelper from '../../data/grid'
 
 const confirm = Modal.confirm
-
-const columns = [{
-    title: 'ID',
-    dataIndex: 'id',
-    key: 'id',
-    width: 40,
-    render(text) {
-        return <a href="#">{text}</a>;
-    }
-}, {
-    title: '门店名称',
-    dataIndex: 'name',
-    key: 'name',
-}, {
-    title: '地址',
-    dataIndex: 'address',
-    key: 'address',
-}, {
-    title: '所属品牌',
-    dataIndex: 'brand',
-    key: 'brand',
-    width: 80
-}, {
-    title: '是否上线',
-    dataIndex: 'isValid',
-    key: 'isValid',
-    width: 80
-}, {
-    title: '支持红包',
-    dataIndex: 'isBonus',
-    key: 'isBonus',
-    width: 80
-}, {
-    title: '操作',
-    key: 'operation',
-    width: 80,
-    render(text, record) {
-        var url = '/shop/' + record.id;
-        return (
-            <span>
-                <Link to={url}>查看详情</Link>
-            </span>
-    );
-    }
-}];
 
 export default class Shop extends React.Component {
     constructor (props) {
@@ -133,23 +89,30 @@ export default class Shop extends React.Component {
     }
 
     render () {
-        console.log('shop index ................................')
-        const {data, actions, selectedRowKeys} = this.props
+        const {data, actions, selectedRowKeys, route} = this.props
         const rowSelection = {
             selectedRowKeys,
             onChange: this.onSelectChange.bind(this)
         }
 
+        const grid = gridHelper.lookupGrid('shop')
+        const columns = grid.columns
+
         return (
             <div>
-                <div style={{marginBottom: 16}}>
-                    <Button style={{marginRight: 5}} type="primary" onClick={()=>actions.showModal('add')}>添加</Button>
-                    <Button style={{marginRight: 5}} type="primary" onClick={this.handleEdit.bind(this)}>修改</Button>
-                    <Button style={{marginRight: 5}} type="primary" onClick={this.handleDelete.bind(this)}>删除</Button>
+                {this.props.children ||
+                (
+                <div>
+                    <div style={{marginBottom: 16}}>
+                        <Button style={{marginRight: 5}} type="primary" onClick={()=>actions.showModal('add')}>添加</Button>
+                        <Button style={{marginRight: 5}} type="primary" onClick={this.handleEdit.bind(this)}>修改</Button>
+                        <Button style={{marginRight: 5}} type="primary" onClick={this.handleDelete.bind(this)}>删除</Button>
+                    </div>
+                    <Table rowKey={record => record.id} rowSelection={rowSelection} columns={columns} dataSource={data}/>
+                    <EditModal grid={grid} onOk={this.handleOk}/>
                 </div>
-                <Table rowKey={record => record.id} rowSelection={rowSelection} columns={columns} dataSource={data} />
-
-                <EditModal onOk={this.handleOk} />
+                )
+                }
             </div>
         )
     }

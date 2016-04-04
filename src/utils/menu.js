@@ -30,11 +30,10 @@ module.exports = {
     },
 
     getNavPath(){
-        let path = location.pathname.replace('/', '')
+        let path = location.pathname.replace('/', '').split('/')[0]
         if(path!='' && path != 'home'){
             let navPath = []
             let menusMapper = JSON.parse(localStorage.getItem(MENU_MAPPER))
-
             navPath[0] = {
                 key: menusMapper[path][2],
                 name: menusMapper[path][3]

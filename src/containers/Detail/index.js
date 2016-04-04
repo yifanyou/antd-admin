@@ -1,19 +1,27 @@
 /**
  * Created by youyifan on 2016/3/23.
  */
-import React from 'react'
+import _ from 'lodash'
+import React, { PropTypes } from 'react'
 import {connect} from 'react-redux'
-import {Form} from 'antd'
+import {bindActionCreators} from 'redux'
+import { Form, Input, Button, Checkbox, Radio, Row, Col, Tooltip, Icon } from 'antd'
 import { Link } from 'react-router'
+import {receiveDetail} from '../../actions/detail'
+import gridHelper from '../../data/grid'
 
-const FormItem = Form.Item;
+const FormItem = Form.Item
+const RadioGroup = Radio.Group
 
 export default class Detail extends React.Component {
     constructor (props) {
         super(props)
     }
 
-    componentDidMount () {
+    componentWillMount () {
+        const {actions} = this.props
+        actions.receiveDetail()
+
     }
 
     callback() {
@@ -21,15 +29,67 @@ export default class Detail extends React.Component {
     }
 
     render () {
-        var name = 'hello world:' + this.props.params.id;
-        console.log(this.props.returnTo)
+        const {data} = this.props
+        const {getFieldProps} = this.props.form
+
+        const dd = {a:3, b:4}
+        let dataArray = []
+        _.transform(data, function(dataArray, n, key){
+            dataArray[key] = n
+        })
+        console.log(dataArray)
+
+        const grid = gridHelper.lookupGrid('shop')
+        const columns = grid.columns
+
+        const formItemLayout = {
+            labelCol: { span: 2 },
+            wrapperCol: { span: 10 },
+        };
+
         return (
             <div>
-                <p><Link to={'/shop_m'}>返回</Link></p>
-                {name}
+                <p><Button onClick={()=>this.context.router.goBack()}>返回</Button></p>
+                <br />
+
+                <Form horizontal onSubmit={this.handleSubmit}>
+                    {columns.map(column => (
+                        <FormItem {...formItemLayout} label={column.title + '：'}>
+                            <p className="ant-form-text" id={column.dataIndex} name={column.dataIndex}></p>
+                        </FormItem>
+                    ))}
+                </Form>
             </div>
         )
     }
 }
 
-// export default connect()(Detail)
+Detail.propTypes = {
+    data: PropTypes.object
+}
+
+Detail.contextTypes = {
+    history: PropTypes.object.isRequired,
+    router: PropTypes.object.isRequired,
+    store: PropTypes.object.isRequired
+};
+
+Detail.defaultProps = {
+    data: null
+}
+
+Detail = Form.create()(Detail)
+
+function mapStateToProps(state) {
+    return {
+        data: state.detail.data
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        actions: bindActionCreators({receiveDetail}, dispatch)
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Detail)

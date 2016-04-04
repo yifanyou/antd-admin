@@ -2,6 +2,7 @@
  * Created by youyifan on 2016/3/22.
  */
 import api from '../api'
+import gridHelper from '../data/grid'
 
 export const GET_ALL_ROW = 'GET_ALL_ROW'
 export const GET_ALL_ROW_SUCCESS = 'GET_ALL_ROW_SUCCESS'
@@ -20,6 +21,8 @@ export const DELETE_SUCCESS = 'DELETE_SUCCESS'
 //check
 export const CHECK = 'CHECK'
 
+const url = gridHelper.lookupGrid('shop').url
+
 export function check(selectedRowKeys){
     return {
         type:CHECK,
@@ -33,7 +36,7 @@ export function getAllRow() {
     return {
         type: GET_ALL_ROW,
         payload: {
-            promise: api.get('/bd/shop/test')
+            promise: api.get(url)
         }
     }
 }
@@ -42,7 +45,7 @@ export function insert(shop, callback) {
     return {
         type: INSERT,
         payload: {
-            promise: api.post('/bd/shop/test', {
+            promise: api.post(url, {
                 data: shop,
                 callback:callback
             })
@@ -54,7 +57,7 @@ export function update(shop) {
     return {
         type: UPDATE,
         payload: {
-            promise: api.put('/bd/shop/test', {
+            promise: api.put(url, {
                 data: shop
             })
         }
@@ -65,7 +68,7 @@ export function del(ids, callback) {
     return {
         type: DELETE,
         payload: {
-            promise: api.del('/bd/shop/test', {
+            promise: api.del(url, {
                 data: ids,
                 callback: callback
             })

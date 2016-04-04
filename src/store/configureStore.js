@@ -7,8 +7,9 @@ import user from '../reducers/user'
 import menu from '../reducers/menu'
 import shop from '../reducers/shop'
 import editmodal from '../reducers/editmodal'
+import detail from '../reducers/detail'
 
-const reducer = combineReducers({user, menu, shop, editmodal});
+const reducer = combineReducers({user, menu, shop, editmodal, detail});
 
 const createStoreWithMiddleware = applyMiddleware(
   thunkMiddleware,

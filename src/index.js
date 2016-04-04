@@ -32,12 +32,13 @@ ReactDOM.render(
       <Route path="/" onEnter={validate}>
         <IndexRedirect to="home" />
         <Route component={App}>
-          <Route path="home" component={Home}/>
-          <Route path="shop_m" component={Shop}/>
-          <Route path="/shop/:id" component={Detail}/>
+          <Route path="home" component={Home} />
+          <Route path="shop_m" component={Shop}>
+            <Route path="shop/:id" component={Detail} />
+          </Route>
         </Route>
-        <Route path="login" component={Login}/>
-        <Route path="*" component={NotFound}/>
+        <Route path="login" component={Login} />
+        <Route path="*" component={NotFound} />
       </Route>
     </Router>
   </Provider>,
