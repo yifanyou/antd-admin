@@ -23,11 +23,11 @@ export default function menu(state = initialState, action = {}) {
       if(action.payload.data){
         action.payload.data.reverse().map((item)=>{
           if(item.indexOf('sub') != -1){
-            tmpKey = item.replace('sub', '');
+            tmpKey = item.replace('sub', '')
             tmpOb = _.find(state.items, function(o) {
-              return o.id == tmpKey;
-            });
-            child = tmpOb.subMenu;
+              return o.id == tmpKey
+            })
+            child = tmpOb.subMenu
             navpath.push({
               key: tmpOb.id,
               name: tmpOb.cname
@@ -37,7 +37,7 @@ export default function menu(state = initialState, action = {}) {
             tmpKey = item.replace('menu', '');
             if(child){
               tmpOb = _.find(child, function(o) {
-                return o.id == tmpKey;
+                return o.id == tmpKey
               });
             }
             navpath.push({
@@ -52,6 +52,6 @@ export default function menu(state = initialState, action = {}) {
         navpath: navpath
       });
     default:
-      return state;
+      return state
   }
 }

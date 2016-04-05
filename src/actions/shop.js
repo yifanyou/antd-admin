@@ -7,6 +7,7 @@ import _ from 'lodash'
 
 export const QUERY = 'QUERY'
 export const QUERY_SUCCESS = 'QUERY_SUCCESS'
+export const QUERY_PENDING = 'QUERY_PENDING'
 
 export const INSERT = 'INSERT'
 export const INSERT_PENDING = 'INSERT_PENDING'

@@ -10,8 +10,10 @@ import {check, updatePagination, query, insert, update, del} from '../../actions
 import {showModal} from '../../actions/editmodal'
 import EditModal from '../Modal/EditModal'
 import gridHelper from '../../data/grid'
+import classNames from 'classnames';
 
 const confirm = Modal.confirm
+const InputGroup = Input.Group;
 
 export default class Shop extends React.Component {
     constructor (props) {
@@ -22,7 +24,7 @@ export default class Shop extends React.Component {
         const{actions, } = this.props
         let request = {
             pageSize: 10,
-            currentPage: 0,
+            currentPage: 1,
             sortField: '',
             sortOrder: '',
             filters:''
@@ -36,7 +38,7 @@ export default class Shop extends React.Component {
 
         let request = {
             pageSize: 10,
-            currentPage: 0,
+            currentPage: 1,
             sortField: '',
             sortOrder: '',
             filters:''
@@ -103,7 +105,7 @@ export default class Shop extends React.Component {
         const {actions} = this.props
         let request = {
             pageSize: 10,
-            currentPage: 0,
+            currentPage: 1,
             sortField: '',
             sortOrder: '',
             filters:''
@@ -116,8 +118,9 @@ export default class Shop extends React.Component {
         const {actions} = this.props
         const pager = this.props.pagination
         pager.current = pagination.current
+        pager.pageSize = pagination.pageSize
 
-        actions.updatePagination(pagination)
+        actions.updatePagination(pager)
 
         let request = {
             pageSize: pagination.pageSize,
@@ -131,39 +134,60 @@ export default class Shop extends React.Component {
     }
 
     render () {
-        const {data, actions, selectedRowKeys, route} = this.props
+        const {data, actions, selectedRowKeys, pagination} = this.props
         const rowSelection = {
             selectedRowKeys,
             onChange: this.onSelectChange.bind(this)
         }
 
-        const pagination = {
-            total: data.length,
-            showSizeChanger: true,
-            onShowSizeChange(current, pageSize) {
-                console.log('Current: ', current, '; PageSize: ', pageSize);
-            },
-            onChange(current) {
-                console.log('Current: ', current);
-            }
-        }
+        // const pagination = {
+        //     total: data.length,
+        //     showSizeChanger: true,
+        //     onShowSizeChange(current, pageSize) {
+        //         console.log('Current: ', current, '; PageSize: ', pageSize);
+        //     },
+        //     onChange(current) {
+        //         console.log('Current: ', current);
+        //     }
+        // }
 
 
         const grid = gridHelper.lookupGrid('shop')
         const columns = grid.columns
+
+        const btnCls = classNames({
+            'ant-search-btn': true
+        });
+        const searchCls = classNames({
+            'ant-search-input': true
+        });
 
         return (
             <div>
                 {this.props.children ||
                 (
                 <div>
-                    <div style={{marginBottom: 16}}>
-                        <Button style={{marginRight: 5}} type="primary" onClick={()=>actions.showModal('add')}>添加</Button>
-                        <Button style={{marginRight: 5}} type="primary" onClick={this.handleEdit.bind(this)}>修改</Button>
-                        <Button style={{marginRight: 5}} type="primary" onClick={this.handleDelete.bind(this)}>删除</Button>
+                    <div>
+                        <div style={{marginBottom: 16, float:'left'}}>
+                            <Button style={{marginRight: 5}} type="primary" onClick={()=>actions.showModal('add')}>添加</Button>
+                            <Button style={{marginRight: 5}} type="primary" onClick={this.handleEdit.bind(this)}>修改</Button>
+                            <Button style={{marginRight: 5}} type="primary" onClick={this.handleDelete.bind(this)}>删除</Button>
+                        </div>
+                        <div style={{marginBottom: 16, float:'right'}}>
+                            <InputGroup className={searchCls}>
+                                <Input  />
+                                <div className="ant-input-group-wrap">
+                                    <Button className={btnCls} >
+                                        <Icon type="search" />
+                                    </Button>
+                                </div>
+                            </InputGroup>
+                        </div>
                     </div>
                     <Table rowKey={record => record.id} columns={columns} dataSource={data}
-                           rowSelection={rowSelection} pagination={pagination} loading={this.props.loading}/>
+                           rowSelection={rowSelection} pagination={pagination} loading={this.props.loading}
+                           onChange={this.handleTableChange.bind(this)}
+                    />
                     <EditModal grid={grid} onOk={this.handleOk}/>
                 </div>
                 )
@@ -185,7 +209,8 @@ Shop.defaultProps = {
     loading: false,
     pagination: {
         pageSize: 10,
-        currentPage: 0
+        currentPage: 1,
+        showSizeChanger: true
     }
 }
 
