@@ -27,11 +27,9 @@ export default function shop(state = initialState, action = {}) {
         case CHECK:
             return Object.assign({}, state, {selectedRowKeys: action.selectedRowKeys})
         case UPDATE_PAGINATION:
-            console.log(action.pagination)
             return Object.assign({}, state, {pagination: action.pagination})
         case QUERY_SUCCESS:
-            console.log(state)
-            return Object.assign({}, state, {loading:false, rows: action.payload.data, pagination: {total: action.payload.totalCount}})
+            return Object.assign({}, initialState, {loading:false, rows: action.payload.data, pagination: {total: action.payload.totalCount}})
         case QUERY_PENDING:
             return Object.assign({}, state, {loading:true})
         case INSERT_SUCCESS:

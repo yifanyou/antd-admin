@@ -15,7 +15,7 @@ export function updateNavPath(path, key) {
 }
 
 export function getAllMenu(id) {
-  var path = '/v1/user/'+id+'/menu';
+  var path = '/v2/user/'+id+'/menu';
   return {
     type: GET_ALL_MENU,
     payload: {

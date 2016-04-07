@@ -57,12 +57,13 @@ export function insert(shop, callback) {
     }
 }
 
-export function update(shop) {
+export function update(shop, callback) {
     return {
         type: UPDATE,
         payload: {
             promise: api.put(url, {
-                data: shop
+                data: shop,
+                callback: callback
             })
         }
     }

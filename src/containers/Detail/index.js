@@ -20,7 +20,7 @@ export default class Detail extends React.Component {
 
     componentWillMount () {
         const {actions} = this.props
-        actions.receiveDetail('/bd/shop/test/shop/1')
+        actions.receiveDetail('/v2/shop/1')
     }
 
     callback() {

@@ -10,7 +10,7 @@ import {check, updatePagination, query, insert, update, del} from '../../actions
 import {showModal} from '../../actions/editmodal'
 import EditModal from '../Modal/EditModal'
 import gridHelper from '../../data/grid'
-import classNames from 'classnames';
+import classNames from 'classnames'
 
 const confirm = Modal.confirm
 const InputGroup = Input.Group;
@@ -140,18 +140,6 @@ export default class Shop extends React.Component {
             onChange: this.onSelectChange.bind(this)
         }
 
-        // const pagination = {
-        //     total: data.length,
-        //     showSizeChanger: true,
-        //     onShowSizeChange(current, pageSize) {
-        //         console.log('Current: ', current, '; PageSize: ', pageSize);
-        //     },
-        //     onChange(current) {
-        //         console.log('Current: ', current);
-        //     }
-        // }
-
-
         const grid = gridHelper.lookupGrid('shop')
         const columns = grid.columns
 
@@ -173,22 +161,12 @@ export default class Shop extends React.Component {
                             <Button style={{marginRight: 5}} type="primary" onClick={this.handleEdit.bind(this)}>修改</Button>
                             <Button style={{marginRight: 5}} type="primary" onClick={this.handleDelete.bind(this)}>删除</Button>
                         </div>
-                        <div style={{marginBottom: 16, float:'right'}}>
-                            <InputGroup className={searchCls}>
-                                <Input  />
-                                <div className="ant-input-group-wrap">
-                                    <Button className={btnCls} >
-                                        <Icon type="search" />
-                                    </Button>
-                                </div>
-                            </InputGroup>
-                        </div>
                     </div>
                     <Table rowKey={record => record.id} columns={columns} dataSource={data}
                            rowSelection={rowSelection} pagination={pagination} loading={this.props.loading}
                            onChange={this.handleTableChange.bind(this)}
                     />
-                    <EditModal grid={grid} onOk={this.handleOk}/>
+                    <EditModal grid={grid} onOk={this.handleOk.bind(this)}/>
                 </div>
                 )
                 }

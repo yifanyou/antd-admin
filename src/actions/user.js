@@ -20,7 +20,7 @@ export function fetchProfile(uid) {
     return {
         type: FETCH_PROFILE,
         payload: {
-          promise: api.get('/v1/user/'+uid)
+          promise: api.get('/v2/user/'+uid)
         }
     }
 }
@@ -29,7 +29,7 @@ export function login(user, password) {
   return {
       type: LOGIN,
       payload: {
-        promise: api.post('/v1/security/login', {
+        promise: api.post('/v2/security/login', {
           data: {
             username: user,
             password: password
