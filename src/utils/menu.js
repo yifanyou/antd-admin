@@ -34,13 +34,16 @@ module.exports = {
         if(path!='' && path != 'home'){
             let navPath = []
             let menusMapper = JSON.parse(localStorage.getItem(MENU_MAPPER))
-            navPath[0] = {
-                key: menusMapper[path][2],
-                name: menusMapper[path][3]
-            }
-            navPath[1] = {
-                key:  menusMapper[path][0],
-                name:  menusMapper[path][1]
+
+            if(menusMapper[path]!=null){
+                navPath[0] = {
+                    key: menusMapper[path][2],
+                    name: menusMapper[path][3]
+                }
+                navPath[1] = {
+                    key:  menusMapper[path][0],
+                    name:  menusMapper[path][1]
+                }
             }
             return navPath
         }

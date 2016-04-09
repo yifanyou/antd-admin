@@ -35,17 +35,6 @@ app.get('*', function (req, res){
   res.sendFile(path.resolve(__dirname, '', 'index.html'))
 })
 
-app.post('/test/shop/1', function(req, res) {
-  res.json({
-        id: 1,
-        name: '尤',
-        brand: '家',
-        address: '瑞安市安阳路10栋三单元401室',
-        isValid:'1',
-        isBonus:'1'
-  });
-});
-
 app.listen(port, function (err, result) {
   if(err){
     console.log(err);

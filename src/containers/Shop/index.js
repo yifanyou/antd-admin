@@ -2,12 +2,13 @@
  * Created by youyifan on 2016/3/20.
  */
 import _ from 'lodash'
-import React, { PropTypes } from 'react'
+import React, {PropTypes} from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import { Radio, Switch, Form, Input, Table, Modal, Button, Icon, Row, Col, Collapse, Alert, notification} from 'antd'
+import {Radio, Switch, Form, Input, Table, Modal, Button, Icon, Row, Col, Collapse, Alert, notification} from 'antd'
 import {check, updatePagination, query, insert, update, del} from '../../actions/shop'
 import {showModal} from '../../actions/editmodal'
+import {Link} from 'react-router'
 import EditModal from '../Modal/EditModal'
 import gridHelper from '../../data/grid'
 import classNames from 'classnames'
@@ -155,6 +156,7 @@ export default class Shop extends React.Component {
                 {this.props.children ||
                 (
                 <div>
+                    <div><Link to={'/xtable'}>Xtable</Link></div>
                     <div>
                         <div style={{marginBottom: 16, float:'left'}}>
                             <Button style={{marginRight: 5}} type="primary" onClick={()=>actions.showModal('add')}>添加</Button>
