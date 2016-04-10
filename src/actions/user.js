@@ -32,7 +32,8 @@ export function login(user, password) {
         promise: api.post('/v2/security/login', {
           data: {
             username: user,
-            password: password
+            password: password,
+            type: '0'
           }
         })
       }

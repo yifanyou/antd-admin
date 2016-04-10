@@ -5,11 +5,10 @@ import promiseMiddleware from '../middlewares/promiseMiddleware'
 
 import user from '../reducers/user'
 import menu from '../reducers/menu'
-import shop from '../reducers/shop'
-import editmodal from '../reducers/editmodal'
+import xTable from '../reducers/xTable'
 import detail from '../reducers/detail'
 
-const reducer = combineReducers({user, menu, shop, editmodal, detail});
+const reducer = combineReducers({user, menu, xTable, detail});
 
 const createStoreWithMiddleware = applyMiddleware(
   thunkMiddleware,

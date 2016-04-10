@@ -94,7 +94,7 @@ export default class Shop extends React.Component {
                 actions.del(JSON.stringify(ids), callback)
             },
             onCancel() {}
-        });
+        })
     }
 
     onSelectChange(selectedRowKeys) {
@@ -156,7 +156,6 @@ export default class Shop extends React.Component {
                 {this.props.children ||
                 (
                 <div>
-                    <div><Link to={'/xtable'}>Xtable</Link></div>
                     <div>
                         <div style={{marginBottom: 16, float:'left'}}>
                             <Button style={{marginRight: 5}} type="primary" onClick={()=>actions.showModal('add')}>添加</Button>

@@ -14,6 +14,7 @@ import Detail from './containers/Detail'
 import NotFound from './components/Page/NotFound'
 
 import XTable from './containers/XTable'
+import TableTest from './containers/TableTest'
 
 import authUtils from './utils/auth'
 
@@ -38,7 +39,9 @@ ReactDOM.render(
           <Route path="shop_m" component={Shop}>
             <Route path="shop/:id" component={Detail} />
           </Route>
-          <Route path="xtable" component={XTable} />
+          <Route path="ttest" component={TableTest} >
+            <Route path="add" component={Detail} />
+          </Route>
         </Route>
         <Route path="login" component={Login} />
         <Route path="*" component={NotFound} />
