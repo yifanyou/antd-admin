@@ -2,12 +2,11 @@
  * Created by youyifan on 2016/3/23.
  */
 import './index.less'
-import classNames from 'classnames'
 import _ from 'lodash'
 import React, { PropTypes } from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-import { Form, Input, Button, Cascader, Icon, Upload, Select, Modal, notification} from 'antd'
+import { Spin, Form, Input, Button, Cascader, Icon, Upload, Select, Modal, notification} from 'antd'
 import {receiveDetail, insert} from '../../actions/detail'
 import imageConfig from '../../data/image'
 
@@ -28,14 +27,12 @@ export default class Detail extends React.Component {
                 return;
             } else {
                 const formData = form.getFieldsValue()
-                actions.insert(grid.url, formData, this.insertCallback.bind(this))
+                actions.insert(grid.url, formData)
             }
         })
-
-
     }
 
-    insertCallback(e){
+    insertCallback(){
         notification.success({
             message: '新增成功',
             description: '',
@@ -66,7 +63,6 @@ export default class Detail extends React.Component {
         if(file.status == 'done'){
             let fields = new Object()
             fields[name] = file.response.result
-            
             form.setFieldsValue(fields)
         }
     }
@@ -77,19 +73,39 @@ export default class Detail extends React.Component {
     }
     onCascaderChange(name, value) {
         const { form } = this.props
-        let choose = value?value[1]:''
+        let choose = value ? value[1] : ''
         let fields = new Object()
         fields[name] = choose
         form.setFieldsValue(fields)
-        console.log(form.getFieldsValue())
     }
 
-    componentWillMount () {
+    componentDidMount () {
+        const { actions, grid, op, params } = this.props
+        if(op == 'edit') {
+            let url = grid.url + '/' + params.id
+            console.log(url)
+            actions.receiveDetail(url, this.receiveDetailCallBack.bind(this))
+        }
+    }
 
+    receiveDetailCallBack(){
+        const { data, form } = this.props
+        console.log(data)
+        form.setFieldsValue(data)
+    }
+
+    componentWillReceiveProps(nextProps) {
+        const { op } = this.props
+        const { loading, data } = nextProps
+
+        if(op == 'add') {
+            if (this.props.loading !=loading && !loading)
+                this.insertCallback()
+        }
     }
 
     render () {
-        const { grid } = this.props
+        const { grid, op, loading } = this.props
         const data = null
         const {getFieldProps, getFieldError, isFieldValidating} = this.props.form
         const columns = grid.columns
@@ -101,12 +117,16 @@ export default class Detail extends React.Component {
 
         return (
             <div>
-                <p><Button onClick={()=>this.context.router.goBack()}>返回</Button></p>
-                <br />
-
                 <Form horizontal form={this.props.form}>
                     {rightColumns.map(column => {
-                        if(column.dataIndex != 'id')
+                        if(column.dataIndex == 'id'){
+                            if(op == 'edit')
+                                return (
+                                    <FormItem {...formItemLayout} label={column.title + "："} key={column.dataIndex}>
+                                        <Input {...getFieldProps(column.dataIndex)} disabled={true} />
+                                    </FormItem>
+                                )
+                        } else
                             if (column.type === undefined || column.type == null || column.type == 'text') {
                                 if(column.fieldProps == null)
                                     return (
@@ -190,24 +210,22 @@ export default class Detail extends React.Component {
 }
 
 Detail.propTypes = {
-    data: PropTypes.object
+    data: PropTypes.object,
+    loading: PropTypes.bool
 }
 
 Detail.contextTypes = {
     history: PropTypes.object.isRequired,
     router: PropTypes.object.isRequired,
     store: PropTypes.object.isRequired
-};
-
-Detail.defaultProps = {
-    data: null
 }
 
 Detail = Form.create()(Detail)
 
 function mapStateToProps(state) {
     return {
-        data: state.detail.data
+        data: state.detail.data,
+        loading: state.detail.loading
     }
 }
 

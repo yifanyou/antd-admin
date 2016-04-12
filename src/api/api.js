@@ -34,7 +34,10 @@ class _Api {
         }
 
         if(callback) {
-            request.end(callback)
+            request.end(function(err, res){
+                if(res.ok)
+                    callback()
+            })
         } else {
             request.end((err, { body } = {}) => err ? reject(body || err) : resolve(body))
         }

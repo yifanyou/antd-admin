@@ -40,7 +40,8 @@ ReactDOM.render(
             <Route path="shop/:id" component={Detail} />
           </Route>
           <Route path="ttest" component={TableTest} >
-            <Route path="add" component={Detail} />
+            <Route path="add" components={{add:Detail}} />
+            <Route path="edit/:id" components={{edit:Detail}} />
           </Route>
         </Route>
         <Route path="login" component={Login} />
