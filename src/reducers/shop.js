@@ -13,7 +13,7 @@ import {
 } from '../actions/shop'
 
 const initialState = {
-    rows: [],
+    data: [],
     loading: false,
     status:0,
     selectedRowKeys:[],
@@ -29,7 +29,7 @@ export default function shop(state = initialState, action = {}) {
         case UPDATE_PAGINATION:
             return Object.assign({}, state, {pagination: action.pagination})
         case QUERY_SUCCESS:
-            return Object.assign({}, initialState, {loading:false, rows: action.payload.data, pagination: {total: action.payload.totalCount}})
+            return Object.assign({}, initialState, {loading:false, data: action.payload.data, pagination: {total: action.payload.totalCount}})
         case QUERY_PENDING:
             return Object.assign({}, state, {loading:true})
         case INSERT_SUCCESS:
@@ -37,7 +37,7 @@ export default function shop(state = initialState, action = {}) {
         case UPDATE_SUCCESS:
             return Object.assign({}, initialState, {status:action.payload})
         case DELETE_SUCCESS:
-            return Object.assign({}, initialState, {status:action.payload, rows:state.rows})
+            return Object.assign({}, initialState, {status:action.payload, data: state.data})
         default:
             return state
     }

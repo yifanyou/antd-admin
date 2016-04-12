@@ -194,8 +194,9 @@ Shop.defaultProps = {
 }
 
 function mapStateToProps(state) {
+    console.log(state)
     return {
-        data: state.shop.rows,
+        data: state.shop.data,
         selectedRowKeys: state.shop.selectedRowKeys,
         loading:state.shop.loading,
         pagination:state.shop.pagination

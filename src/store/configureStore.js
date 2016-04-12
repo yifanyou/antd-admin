@@ -7,8 +7,9 @@ import user from '../reducers/user'
 import menu from '../reducers/menu'
 import xTable from '../reducers/xTable'
 import detail from '../reducers/detail'
+import shop from '../reducers/shop'
 
-const reducer = combineReducers({user, menu, xTable, detail});
+const reducer = combineReducers({user, menu, xTable, shop, detail});
 
 const createStoreWithMiddleware = applyMiddleware(
   thunkMiddleware,
