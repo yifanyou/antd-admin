@@ -15,7 +15,7 @@ import NotFound from './components/Page/NotFound'
 
 import AddForm from './containers/AddForm'
 import EditForm from './containers/EditForm'
-import TableTest from './containers/TableTest'
+
 
 import authUtils from './utils/auth'
 
@@ -38,11 +38,9 @@ ReactDOM.render(
         <Route component={App}>
           <Route path="home" component={Home} />
           <Route path="shop_m" component={Shop}>
-            <Route path="shop/:id" component={Detail} />
-          </Route>
-          <Route path="ttest" component={TableTest} >
             <Route path="add" components={AddForm} />
             <Route path="edit/:id" components={EditForm} />
+            <Route path="shop/:id" components={Detail} />
           </Route>
         </Route>
         <Route path="login" component={Login} />
@@ -51,4 +49,4 @@ ReactDOM.render(
     </Router>
   </Provider>,
   document.getElementById('root')
-);
+)

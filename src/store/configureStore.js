@@ -8,9 +8,9 @@ import menu from '../reducers/menu'
 import xTable from '../reducers/xTable'
 import addForm from '../reducers/addForm'
 import editForm from '../reducers/editForm'
-import shop from '../reducers/shop'
+import detail from '../reducers/detail'
 
-const reducer = combineReducers({user, menu, xTable, shop, addForm, editForm});
+const reducer = combineReducers({user, menu, xTable, addForm, editForm, detail});
 
 const createStoreWithMiddleware = applyMiddleware(
   thunkMiddleware,

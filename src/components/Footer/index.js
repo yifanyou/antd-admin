@@ -10,7 +10,10 @@ export default class Footer extends React.Component {
   render () {
     return (
       <div className="ant-layout-footer">
-        美柠（上海）网络科技有限公司 版权所有 © 2015 meiningjia.com
+        美柠（上海）网络科技有限公司 版权所有 © 2015
+        <a href="http://www.meiningjia.com" target="_blank">
+          &nbsp; Meiningjia
+        </a>
       </div>
     )
   }

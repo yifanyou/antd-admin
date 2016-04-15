@@ -7,7 +7,9 @@ export default class NotFound extends React.Component {
     render () {
         return (
             <div>
-                <p>未找到页面</p>
+                <br />
+                <br />
+                <h2 style={{textAlign:'center'}}>页面未找到!</h2>
             </div>
         )
     }
