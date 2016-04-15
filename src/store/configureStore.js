@@ -6,10 +6,11 @@ import promiseMiddleware from '../middlewares/promiseMiddleware'
 import user from '../reducers/user'
 import menu from '../reducers/menu'
 import xTable from '../reducers/xTable'
-import detail from '../reducers/detail'
+import addForm from '../reducers/addForm'
+import editForm from '../reducers/editForm'
 import shop from '../reducers/shop'
 
-const reducer = combineReducers({user, menu, xTable, shop, detail});
+const reducer = combineReducers({user, menu, xTable, shop, addForm, editForm});
 
 const createStoreWithMiddleware = applyMiddleware(
   thunkMiddleware,

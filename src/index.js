@@ -13,7 +13,8 @@ import Shop from './containers/Shop'
 import Detail from './containers/Detail'
 import NotFound from './components/Page/NotFound'
 
-import XTable from './containers/XTable'
+import AddForm from './containers/AddForm'
+import EditForm from './containers/EditForm'
 import TableTest from './containers/TableTest'
 
 import authUtils from './utils/auth'
@@ -40,8 +41,8 @@ ReactDOM.render(
             <Route path="shop/:id" component={Detail} />
           </Route>
           <Route path="ttest" component={TableTest} >
-            <Route path="add" components={{add:Detail}} />
-            <Route path="edit/:id" components={{edit:Detail}} />
+            <Route path="add" components={AddForm} />
+            <Route path="edit/:id" components={EditForm} />
           </Route>
         </Route>
         <Route path="login" component={Login} />
