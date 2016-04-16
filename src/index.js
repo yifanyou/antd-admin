@@ -9,13 +9,13 @@ import configureStore from './store/configureStore'
 import App from './containers/App'
 import Home from './containers/Home'
 import Login from './containers/Login'
+import User from './containers/User'
 import Shop from './containers/Shop'
 import Detail from './containers/Detail'
 import NotFound from './components/Page/NotFound'
 
 import AddForm from './containers/AddForm'
 import EditForm from './containers/EditForm'
-
 
 import authUtils from './utils/auth'
 
@@ -37,6 +37,7 @@ ReactDOM.render(
         <IndexRedirect to="home" />
         <Route component={App}>
           <Route path="home" component={Home} />
+          <Route path="customer_m" component={User} />
           <Route path="shop_m" component={Shop}>
             <Route path="add" components={AddForm} />
             <Route path="edit/:id" components={EditForm} />

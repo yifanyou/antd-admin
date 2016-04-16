@@ -9,10 +9,6 @@ import {bindActionCreators} from 'redux'
 import { Row, Col, Spin, Form, Input, Button, Cascader, Icon, Upload, Select, Modal, notification} from 'antd'
 import {fetchDetail} from '../../actions/detail'
 import {imageUrl} from '../../data/image'
-import {code} from '../../data/code'
-
-const confirm = Modal.confirm
-const FormItem = Form.Item
 
 export default class Detail extends React.Component {
     constructor (props) {
@@ -21,7 +17,6 @@ export default class Detail extends React.Component {
 
     componentWillMount () {
         const { grid, actions, params } = this.props
-        console.log(this.props.params)
         actions.fetchDetail(grid.url + '/' + params.id)
     }
 
