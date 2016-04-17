@@ -1,0 +1,108 @@
+import React from 'react'
+import Popover from 'material-ui/lib/popover/popover'
+import RaisedButton from 'material-ui/lib/raised-button'
+import FlatButton from 'material-ui/lib/flat-button'
+import AppBar from 'material-ui/lib/app-bar'
+import IconButton from 'material-ui/lib/icon-button'
+import IconMenu from 'material-ui/lib/menus/icon-menu'
+import MoreVertIcon from 'material-ui/lib/svg-icons/navigation/more-vert'
+import Menu from 'material-ui/lib/menus/menu'
+import MenuItem from 'material-ui/lib/menus/menu-item'
+import NavigationMenu from 'material-ui/lib/svg-icons/navigation/menu'
+import NavigationExpandMore from 'material-ui/lib/svg-icons/navigation/expand-more'
+import ActionAndroid from 'material-ui/lib/svg-icons/action/android'
+
+import FontIcon from 'material-ui/lib/font-icon'
+import NavigationExpandMoreIcon from 'material-ui/lib/svg-icons/navigation/expand-more'
+import ActionSignOut from 'material-ui/lib/svg-icons/action/power-settings-new'
+import ActionLock from 'material-ui/lib/svg-icons/action/lock'
+import ActionHostIcon from 'material-ui/lib/svg-icons/action/home'
+import DropDownMenu from 'material-ui/lib/DropDownMenu'
+import ToolbarGroup from 'material-ui/lib/toolbar/toolbar-group'
+import ToolbarSeparator from 'material-ui/lib/toolbar/toolbar-separator'
+import ToolbarTitle from 'material-ui/lib/toolbar/toolbar-title'
+import Tab from 'material-ui/lib/tabs/tab'
+
+import {Button} from 'antd'
+
+import 'antd/style/index.less'
+
+const styles = {
+    popover: {
+        padding: 20
+    },
+    flatButtonLabel: {
+        textTransform: 'none'
+    },
+    menu: {
+        marginRight: 32,
+        marginBottom: 32,
+        float: 'left',
+        position: 'relative',
+        zIndex: 0,
+    },
+    rightIcon: {
+        textAlign: 'center',
+        lineHeight: '24px',
+    }
+}
+
+const iconStyles = {
+    marginRight: 24,
+}
+
+
+export default class App extends React.Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            open: false
+        }
+    }
+
+    handleTouchTap = (event) => {
+        this.setState({
+            open: true,
+            anchorEl: event.currentTarget
+        })
+    }
+
+    handleRequestClose = () => {
+        this.setState({
+            open: false
+        })
+    }
+
+    render() {
+        return (
+            <div>
+                <AppBar
+                    title="美柠家"
+                    zDepth={1}
+                    iconElementLeft={<IconButton><NavigationMenu /></IconButton>}
+                    iconElementRight={
+                        <FlatButton
+                          labelStyle={styles.flatButtonLabel}
+                          label={<span>Hello，youyifan</span>}
+                          labelPosition="before"
+                          primary={true}
+                          icon={<NavigationExpandMoreIcon />}
+                          onTouchTap={this.handleTouchTap}
+                        />
+                    }
+                />
+                <Popover
+                    open={this.state.open}
+                    anchorEl={this.state.anchorEl}
+                    anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
+                    targetOrigin={{horizontal: 'right', vertical: 'top'}}
+                    onRequestClose={this.handleRequestClose}
+                >
+                    <MenuItem primaryText="修改密码"  leftIcon={<ActionLock />} />
+                    <MenuItem primaryText="登出"  leftIcon={<ActionSignOut />} />
+                </Popover>
+            </div>
+        )
+    }
+}
