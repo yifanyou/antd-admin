@@ -28,7 +28,6 @@ export default class XTable extends React.Component {
             search: search
         }
         actions.search(grid.url +　'/search', params)
-        console.log('test1')
     }
 
     showSizeChange(current, pageSize) {
@@ -36,7 +35,6 @@ export default class XTable extends React.Component {
         let pager = this.props.pagination
         pager.pageSize = pageSize
         actions.updatePagination(pager)
-        console.log('test2')
     }
 
     pageChange(current) { }
@@ -61,8 +59,6 @@ export default class XTable extends React.Component {
         }
         
         actions.query(grid.url, params)
-
-        console.log('test3')
     }
 
     handleInsert() {
@@ -150,7 +146,6 @@ export default class XTable extends React.Component {
             current: 1
         }
         actions.query(grid.url, params)
-        console.log('test4')
     }
 
     render () {
@@ -170,7 +165,7 @@ export default class XTable extends React.Component {
             onShowSizeChange:this.showSizeChange.bind(this),
             onChange:this.pageChange.bind(this)
         })
-        console.log('test5')
+
         return (
             <div>
                 <Row style={{marginBottom: 8, zIndex: 0}}>

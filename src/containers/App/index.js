@@ -31,6 +31,7 @@ class App extends React.Component {
   render() {
     const {uid, profile, actions} = this.props
     let realUid = uid?uid:authUtils.getUid()
+
     return (
       <div className="ant-layout-aside">
         <Sidebar uid={realUid} />

@@ -11,6 +11,7 @@ import Home from './containers/Home'
 import Login from './containers/Login'
 import User from './containers/User'
 import Shop from './containers/Shop'
+import UserPush from './containers/UserPush/UserPush'
 import Detail from './containers/Detail'
 import NotFound from './components/Page/NotFound'
 
@@ -36,13 +37,14 @@ ReactDOM.render(
       <Route path="/" onEnter={validate}>
         <IndexRedirect to="home" />
         <Route component={App}>
-          <Route path="home" component={Home} />
-          <Route path="customer_m" component={User} />
-          <Route path="shop_m" component={Shop}>
-            <Route path="add" components={AddForm} />
-            <Route path="edit/:id" components={EditForm} />
-            <Route path="shop/:id" components={Detail} />
+          <Route name="home" breadcrumbName="首页" path="home" component={Home} />
+          <Route name="customer" breadcrumbName="用户管理" path="customer_m" component={User} />
+          <Route name="shop" breadcrumbName="门店管理" path="shop_m" component={Shop}>
+            <Route name="add" breadcrumbName="新增" path="add" components={AddForm} />
+            <Route name="edit" breadcrumbName="编辑" path="edit/:id" components={EditForm} />
+            <Route name="profile" breadcrumbName="详情" path="shop/:id" components={Detail} />
           </Route>
+          <Route path="user_push" component={UserPush} />
         </Route>
         <Route path="login" component={Login} />
         <Route path="*" component={NotFound} />

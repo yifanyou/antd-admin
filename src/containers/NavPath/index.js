@@ -22,12 +22,14 @@ class NavPath extends React.Component {
         <Breadcrumb.Item key={'bc-'+item.key}>{item.name}</Breadcrumb.Item>
       )
     })
+
     return (
       <div className="ant-layout-breadcrumb">
         <Breadcrumb>
           <Breadcrumb.Item key='bc-0'><Link to={'/home'} state={null}>首页</Link></Breadcrumb.Item>
           {bread}
         </Breadcrumb>
+        <br />
       </div>
     )
   }
