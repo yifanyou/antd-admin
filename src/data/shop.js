@@ -55,7 +55,7 @@ export const shop = {
         },
         render(text, record) {
             let item = code.shopStatus.find(item => item.key == text)
-            return (<p>{item.value}</p>)
+            return (<p>{item?item.value:''}</p>)
         }
     }, {
         title: '是否上线',
@@ -69,7 +69,7 @@ export const shop = {
         },
         render(text, record) {
             let item = code.isValid.find(item => item.key == text)
-            return (<p>{item.value}</p>)
+            return (<p>{item?item.value:''}</p>)
         }
     }, {
         title: '支持红包',
@@ -83,7 +83,7 @@ export const shop = {
         },
         render(text, record) {
             let item = code.isBonus.find(item => item.key == text)
-            return (<p>{item.value}</p>)
+            return (<p>{item?item.value:''}</p>)
         }
     }, {
         title: '门店描述',
@@ -102,6 +102,7 @@ export const shop = {
             initialValue: '1'
         },
         render(text, record) {
+            console.log('isBeautiAllItem')
             let item = code.isBeautiAllItem.find(item => item.key == text)
             return (<p>{item.value}</p>)
         }

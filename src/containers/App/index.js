@@ -1,6 +1,6 @@
-import React, {PropTypes} from 'react';
-import {bindActionCreators} from 'redux';
-import {connect} from 'react-redux';
+import React, {PropTypes} from 'react'
+import {bindActionCreators} from 'redux'
+import {connect} from 'react-redux'
 import NavPath from '../../containers/NavPath'
 import Sidebar from '../../containers/Sidebar'
 import Header from '../../components/Header'
@@ -72,7 +72,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({logout, fetchProfile}, dispatch)
-  };
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

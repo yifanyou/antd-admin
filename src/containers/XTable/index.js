@@ -16,7 +16,7 @@ export default class XTable extends React.Component {
         super(props)
         this.state = {
             data:[],
-            selectedRowKeys: [],
+            selectedRowKeys: []
         }
     }
 
@@ -28,6 +28,7 @@ export default class XTable extends React.Component {
             search: search
         }
         actions.search(grid.url +　'/search', params)
+        console.log('test1')
     }
 
     showSizeChange(current, pageSize) {
@@ -35,6 +36,7 @@ export default class XTable extends React.Component {
         let pager = this.props.pagination
         pager.pageSize = pageSize
         actions.updatePagination(pager)
+        console.log('test2')
     }
 
     pageChange(current) { }
@@ -44,6 +46,7 @@ export default class XTable extends React.Component {
     }
 
     handleTableChange(pagination, filters, sorter) {
+        console.log('test3+')
         const { actions, grid } = this.props
         let pager = this.props.pagination
         pager.current = pagination.current
@@ -58,11 +61,13 @@ export default class XTable extends React.Component {
         }
         
         actions.query(grid.url, params)
+
+        console.log('test3')
     }
 
     handleInsert() {
         this.context.router.push({
-            pathname: window.location + '/add',
+            pathname: window.location.pathname + '/add',
             state: null
         })
     }
@@ -84,7 +89,7 @@ export default class XTable extends React.Component {
         })
 
         this.context.router.push({
-            pathname: window.location + '/edit/'+selectedRowKeys[0],
+            pathname: window.location.pathname + '/edit/'+selectedRowKeys[0],
             state: null
         })
     }
@@ -128,7 +133,7 @@ export default class XTable extends React.Component {
         this.setState({
             selectedRowKeys: []
         })
-        actions.updateNavigation(pager)
+        actions.updatePagination(pager)
 
         actions.query(grid.url, params)
         notification.success({
@@ -145,6 +150,7 @@ export default class XTable extends React.Component {
             current: 1
         }
         actions.query(grid.url, params)
+        console.log('test4')
     }
 
     render () {
@@ -164,7 +170,7 @@ export default class XTable extends React.Component {
             onShowSizeChange:this.showSizeChange.bind(this),
             onChange:this.pageChange.bind(this)
         })
-
+        console.log('test5')
         return (
             <div>
                 <Row style={{marginBottom: 8, zIndex: 0}}>

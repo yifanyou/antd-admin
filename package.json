@@ -20,12 +20,10 @@
     "react-chartjs": "^0.7.3",
     "react-dom": "^0.14.7",
     "react-redux": "^4.4.0",
-    "react-router": "^2.0.0",
-    "react-tap-event-plugin": "^0.2.0",
+    "react-router": "^2.2.0",
     "redux": "^3.3.1",
     "redux-thunk": "^1.0.3",
-    "superagent": "^1.8.0-beta.2",
-    "material-ui": "^0.14.4"
+    "superagent": "^1.8.0-beta.2"
   },
   "devDependencies": {
     "babel-core": "^6.5.2",

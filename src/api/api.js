@@ -12,14 +12,14 @@ const methods = [
 
 class _Api {
   constructor(opts) {
-    this.opts = opts || {};
+    this.opts = opts || {}
 
     if (!this.opts.baseURI)
-      throw new Error('baseURI option is required');
+      throw new Error('baseURI option is required')
 
     methods.forEach(method =>
       this[method] = (path, { params, data, callback } = {}) => new Promise((resolve, reject) => {
-        const request = superagent[method](this.opts.baseURI + path);
+        const request = superagent[method](this.opts.baseURI + path)
 
         if (params) {
           request.query(params);
@@ -43,10 +43,10 @@ class _Api {
         }
 
       })
-    );
+    )
   }
 }
 
-const Api = _Api;
+const Api = _Api
 
-export default Api;
+export default Api
