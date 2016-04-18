@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import {Provider} from 'react-redux'
 import {Router, Route, IndexRedirect, useRouterHistory} from 'react-router'
 import {createHistory} from 'history'
+import injectTapEventPlugin from 'react-tap-event-plugin'
 
 import configureStore from './store/configureStore'
 
@@ -18,6 +19,8 @@ import AddForm from './containers/AddForm'
 import EditForm from './containers/EditForm'
 
 import authUtils from './utils/auth'
+
+injectTapEventPlugin()
 
 const history = useRouterHistory(createHistory)({ basename: '' })
 const store = configureStore();
