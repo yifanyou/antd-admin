@@ -1,33 +1,9 @@
-- [Material UI](https://github.com/callemall/material-ui)
-
-
-
-
-## Antd Admin
-It's a Bashboard built by Antd.
-
-In this project， use some custom apis from backend of mine - -!
-
-### Getting Started
-
-Just clone the repo and install the necessary node modules:
-
-```shell
-$ git clone https://github.com/yifanyou/antd-admin
-$ cd react-antd-admin
-$ npm install
-$ npm start
-```
-
-### Run test spec
-
-```shell
-$ npm run test
-```
-
+### Antd Admin
 Thx [fireyy](https://github.com/fireyy/react-antd-admin)
 
-### React Ant.Design Admin UI
+New:
+common table component XTable
+common form component AddForm & EditForm & Detail
 
 ### Features
 
