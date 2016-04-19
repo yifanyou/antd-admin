@@ -1,9 +1,9 @@
 ### Antd Admin
-Thx [fireyy](https://github.com/fireyy/react-antd-admin)
+Copy from [fireyy](https://github.com/fireyy/react-antd-admin)
 
-New:
-common table component XTable
-common form component AddForm & EditForm & Detail
+### Differences from [Origin] (https://github.com/fireyy/react-antd-admin)
+- common table component XTable
+- common form component AddForm & EditForm & Detail
 
 ### Features
 
